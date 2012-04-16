@@ -4,6 +4,7 @@
     <tr>
       <th>ID</th>
       <th>Last name</th>
+      <th>First name</th>
       <th>Created at</th>
       <th>Actions</th>
     </tr>
@@ -12,7 +13,8 @@
     <% @members.each do |member| %>
       <tr>
         <td><%= member.id %></td>
-        <td><%= link_to member.last_name, member_path(member) %></td>
+        <td><%= member.last_name %></td>
+        <td><%= member.first_name %></td>
         <td><%= member.created_at %></td>
         <td>
           <%= link_to 'Edit', edit_member_path(member), :class => 'btn btn-mini' %>
