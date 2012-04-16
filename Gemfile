@@ -30,6 +30,8 @@ group :development, :test do
   gem 'guard-spork'
   gem 'rb-fsevent', require: false if RUBY_PLATFORM =~ /darwin/i
   gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'faker-japanese'
 end
 
 # To use ActiveModel has_secure_password
