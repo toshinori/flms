@@ -1,0 +1,22 @@
+<h1>/Member</h1>
+
+<p>
+  <b>Last name</b><br>
+  <%= @member.last_name %>
+</p>
+
+<p>
+  <b>First name</b><br>
+  <%= @member.first_name %>
+</p>
+
+<p>
+  <b>Player number</b><br>
+  <%= @member.player_number %>
+</p>
+
+<div class="form-actions">
+  <%= link_to 'Back', members_path, :class => 'btn'  %>
+  <%= link_to 'Edit', edit_member_path(@member), :class => 'btn' %>
+  <%= link_to 'Delete', member_path(@member), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+</div>

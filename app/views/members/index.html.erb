@@ -1,0 +1,26 @@
+<h1>Members</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Last name</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.id %></td>
+        <td><%= link_to member.last_name, member_path(member) %></td>
+        <td><%= member.created_at %></td>
+        <td>
+          <%= link_to 'Edit', edit_member_path(member), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', member_path(member), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New', new_member_path, :class => 'btn btn-primary' %>
