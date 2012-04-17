@@ -7,11 +7,18 @@ describe Member do
       context "set '#{value}'(#{label.to_s})" do
         subject { target_model }
         it { ->{ subject[name] = value}.should change(subject, :invalid?).from(false).to(true)}
+        it {
+          subject[name] = value
+          should have_at_least(1).errors_on(name)
+        }
       end
     end
   end
 
   context 'when new' do
+    it { should be_a_new(Member) }
+    it { should_not be_nil }
+
     its(:valid?) { should_not be_true }
     its(:save) { should be_false }
   end
