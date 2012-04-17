@@ -1,6 +1,5 @@
 Flms::Application.routes.draw do
-  resources :members do
-  end
+  resources :members
 
   resources :teams
 
