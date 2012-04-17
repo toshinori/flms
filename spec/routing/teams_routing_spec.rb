@@ -1,7 +1,19 @@
 require "spec_helper"
 
 describe TeamsController do
-  pending 'not yet designed.'
+  let!(:id) { "1" }
+
+  describe 'routing' do
+    it { get("/teams").should route_to(controller: "teams", action: "index") }
+    it { get("/teams/new").should route_to(controller: "teams", action: "new") }
+    it { get("/teams/#{id}/edit").should route_to(controller: "teams", action: "edit", id: id) }
+    it { post("/teams").should route_to(controller: "teams", action: "create") }
+    it { put("/teams/#{id}").should route_to(controller: "teams", action: "update", id: id) }
+    it { delete("/teams/#{id}").should route_to(controller: "teams", action: "destroy", id: id) }
+  end
+
+
+  # pending 'not yet designed.'
   # describe "routing" do
 
     # it "routes to #index" do
