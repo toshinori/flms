@@ -1,5 +1,5 @@
 class Member < ActiveRecord::Base
-  MemberTypes = {player: 1, manager: 2}
+  MemberTypes = { none: 0, player: 1, manager: 2}
 
   has_one :team_member
   has_one :team, through: :team_member
@@ -16,4 +16,7 @@ class Member < ActiveRecord::Base
     allow_blank: true,
     format: {with: %r(^\d{5}$)i},
     uniqueness: true
+
+  validates :member_type,
+    inclusion: { in: (Member::MemberTypes.values) }
 end
