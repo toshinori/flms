@@ -5,6 +5,35 @@ describe MembersController do
   let(:valid_attributes) { FactoryGirl.attributes_for(:member_base) }
   let(:valid_session) { {} }
 
+  describe 'Mock' do
+    context 'Mock Test' do
+
+      it 'aaa' do
+        member = Member.new({last_name: 'hoge'})
+        Member.any_instance.stub(:save).and_return(false)
+        member.save.should be_false
+      end
+
+      it 'bb' do
+        member = stub(Member)
+        member.stub(:last_name).and_return("hoge")
+        member.last_name.should  == 'hoge'
+        member.should_not be_an_instance_of(Member)
+      end
+
+      it 'cc' do
+        member = stub_model(Member)
+        member.should be_an_instance_of(Member)
+      end
+
+      it 'dd' do
+
+        member = stub_model(Member)
+        member.stub_chain(:last_name, :to_s)
+
+      end
+    end
+  end
 
   describe 'GET index' do
     before (:each) {
@@ -20,8 +49,8 @@ describe MembersController do
     # @membersの検証
     context :members do
       it { assigns(:members).should  == @members }
+      it { should assign_to(:members).with(@members) }
     end
-
   end
 
   describe "GET new" do

@@ -1,4 +1,9 @@
 class Member < ActiveRecord::Base
+  MemberTypes = {player: 1, manager: 2}
+
+  has_one :team_member
+  has_one :team, through: :team_member
+
   validates :first_name,
     presence: true,
     length: { maximum: 10 }

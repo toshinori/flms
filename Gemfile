@@ -25,6 +25,8 @@ gem 'twitter-bootstrap-rails'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'fuubar'
   gem 'spork', '~> 0.9.0.rc'
   gem 'guard'
   gem 'guard-rspec'
