@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
 shared_examples_for :to_invalid_after_attr_change do |name, test_values|
-  test_values.each do |label, value|
-    context "set '#{value}'(#{label.to_s})" do
-      subject { target_model }
-      it { ->{ subject[name] = value}.should change(subject, :invalid?).from(false).to(true)}
-      it {
-        subject[name] = value
-        should have_at_least(1).errors_on(name)
-      }
+    describe name do
+      test_values.each do |label, value|
+        context "when set '#{value}'(#{label.to_s})" do
+          subject { target_model }
+          it { ->{ subject[name] = value}.should change(subject, :invalid?).from(false).to(true)}
+          it {
+            subject[name] = value
+            should have_at_least(1).errors_on(name)
+          }
+        end
     end
   end
 end

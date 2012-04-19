@@ -8,7 +8,7 @@ describe Team do
 
   context 'when new' do
     its(:valid?) { should_not be_true }
-    its(:save) { should be_false }
+    its(:save) { should_not be_true }
   end
 
   describe 'valid model' do
@@ -23,43 +23,50 @@ describe Team do
 
   context 'after delete' do
     let!(:target) { FactoryGirl.create(:team_base) }
+    subject { target }
     it { ->{ target.delete }.should change(Team, :count).by(-1) }
   end
 
   context 'after destroy' do
-    let!(:target) { FactoryGirl.create(:team_base) }
-    it {->{ target.destroy }.should change(Team, :count).by(-1) }
+    subject {  FactoryGirl.create(:team_base, player_count: 10) }
+    before { subject.destroy }
+    it { Team.find_all_by_id(subject.id).count.should == 0 }
+    describe TeamMember do
+      it { TeamMember.find_all_by_team_id(subject.id).count.should == 0}
+    end
   end
 
   describe 'association' do
+    pending "can't set assosiations yet."
     it { should have_many(:members).through(:team_members) }
+    it { should have_many(:home_games) }
+    # it { should have_many(:games) }
+    # it { should have_many(:game_pregresses) }
   end
 
   describe 'attributes' do
     test_values = {empty: '', length_over: 'あいうえおあいうえおあいうえおあいうえおあ'}
-
     it_behaves_like :to_invalid_after_attr_change, 'name', test_values do
       let(:target_model) { valid_model }
     end
-
   end
 
-  describe 'members attribute' do
+  describe 'members' do
 
-    context 'can add new member' do
+    context 'when add new member' do
       subject { created_model }
       let!(:new_member) { FactoryGirl.create(:player) }
-      it { ->{ subject.add_member(new_member) }.should change(subject.members, :count).by(1) }
+      it { ->{ subject.members << new_member }.should change(subject.members, :count).by(1) }
     end
 
-    context 'can remove a member' do
+    context 'when member a member' do
       subject { created_model }
       let!(:new_member) { FactoryGirl.create(:player) }
-      let!(:member_add) { subject.add_member(new_member); subject }
-      it { ->{ member_add.remove_member(new_member) }.should change(subject.members, :count).by(-1) }
+      let!(:member_add) { subject.members << new_member; subject }
+      it { ->{ member_add.members.delete(new_member) }.should change(subject.members, :count).by(-1) }
     end
 
-    context 'after destroy' do
+    context 'when after destroy' do
       let!(:target) { FactoryGirl.create(:team_base, player_count: 10) }
       let!(:members_count) { target.members.count }
       it {->{ target.destroy }.should change(target.members, :count).from(members_count).to(0)}
@@ -67,12 +74,12 @@ describe Team do
 
   end
 
-  describe 'players method' do
-    context 'add 5 players' do
+  describe 'players' do
+    context 'when add 5 players' do
       before do
         @team = FactoryGirl.create(:team_base)
         players = FactoryGirl.create_list(:player, 5)
-        players.each { |p| @team.add_member(p) }
+        players.each { |p| @team.members << p }
       end
 
       subject { @team }
@@ -81,12 +88,12 @@ describe Team do
     end
   end
 
-  describe 'managers method' do
-    context 'add 5 managers' do
+  describe 'managers' do
+    context 'when add 5 managers' do
       before do
         @team = FactoryGirl.create(:team_base)
         players = FactoryGirl.create_list(:manager, 5)
-        players.each { |p| @team.add_member(p) }
+        players.each { |p| @team.members << p }
       end
 
       subject { @team }
