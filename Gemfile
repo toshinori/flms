@@ -37,6 +37,7 @@ group :development, :test do
   gem 'faker-japanese'
   gem 'capybara'
   gem 'launchy'
+  gem 'simplecov', require: false
 end
 
 # To use ActiveModel has_secure_password

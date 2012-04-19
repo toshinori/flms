@@ -16,8 +16,7 @@ describe Member do
   end
 
   describe 'association' do
-    # shoulda-matchersで提供される機能だけど、has_oneがないのでここでは使用できない
-    # it { should have_many(:teams).through(:team_members) }
+    it { should have_one(:team).through(:team_member) }
   end
 
   describe 'valid_model' do
@@ -41,22 +40,22 @@ describe Member do
     it {->{ target.delete }.should change(Member, :count).by(-1) }
   end
 
-  describe 'first_name attribute' do
+  describe '#first_name' do
     names = { empty: '', length_over: 'あいうえおあいうえおあ' }
     it_behaves_like :to_invalid_after_attr_change , 'first_name', names do
       let(:target_model) { valid_model }
     end
   end
 
-  describe 'last_name attribute' do
+  describe '#last_name' do
     names = { empty: '', length_over: 'あいうえおあいうえおあ' }
     it_behaves_like :to_invalid_after_attr_change , 'last_name', names do
       let(:target_model) { valid_model }
     end
   end
 
-  describe 'player_number attribute' do
-    context 'set nil' do
+  describe '#player_number' do
+    context 'when set nil' do
       subject { FactoryGirl.build(:member_base, set_player_number: false) }
       its(:player_number) { should be_nil }
       its(:valid?) { should be_true }
@@ -69,7 +68,7 @@ describe Member do
     end
   end
 
-  describe 'member_type attribute' do
+  describe '#member_type' do
     invalids = { nil: nil, not_include: (Member::MemberTypes.max{ |x, y| x[1] <=> y[1] }[1] + 1) }
     it_behaves_like :to_invalid_after_attr_change , 'member_type', invalids do
       let(:target_model) { valid_model }

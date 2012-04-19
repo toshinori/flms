@@ -18,7 +18,7 @@ describe TeamMember do
     FactoryGirl.build(:team_member, { team_id: team.id, member_id: member.id })
   }
 
-  context 'can save' do
+  context 'when valid' do
     subject {
       valid_model
     }
@@ -26,7 +26,7 @@ describe TeamMember do
     its(:save) { should_not be_false }
   end
 
-  context 'can not save exist id' do
+  context 'when set exist team_id and member_id' do
     subject {
       valid_model.save
       FactoryGirl.build(:team_member, { team_id: valid_model.team_id, member_id: valid_model.member_id })
