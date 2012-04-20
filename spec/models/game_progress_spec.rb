@@ -7,7 +7,6 @@ describe GameProgress do
     its(:save) { should_not be_true }
   end
 
-
   describe 'association' do
     it { should belong_to(:game) }
     it { should belong_to(:team) }

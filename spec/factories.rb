@@ -73,5 +73,13 @@ FactoryGirl.define do
     end
   end
 
+  # Gameモデル
+  factory :game_base, class: Game do
+    ignore do
+      valid false
+    end
+    home_team_id { FactoryGirl.create(:team_base).id if valid }
+    away_team_id { FactoryGirl.create(:team_base).id if valid }
+  end
 end
 

@@ -17,7 +17,7 @@ class Game < ActiveRecord::Base
   validates :away_team_id,
     presence: true
 
-  # validates_with FieldsEquivalentValidator,
-    # fields: [:home_team_id, :away_team_id]
+  validates_with FieldsEquivalentValidator,
+    fields: [:home_team_id, :away_team_id]
 
 end

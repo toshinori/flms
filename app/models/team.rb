@@ -1,6 +1,8 @@
 class Team < ActiveRecord::Base
   has_many :team_members
-  has_many :members, through: :team_members
+
+  has_many :members,
+    through: :team_members
 
   has_many :players,
     through: :team_members,
@@ -13,11 +15,29 @@ class Team < ActiveRecord::Base
     conditions: { member_type: Member::MemberTypes[:manager] }
 
   has_many :home_games,
-    source: :game,
-    foriegn_key: :team_id
+    class_name: Game,
+    foreign_key: :home_team_id,
+    order: { the_date: :asc }
+
+  has_many :away_games,
+    class_name: Game,
+    foreign_key: :away_team_id,
+    order: { the_date: :asc }
+
+  has_many :game_progresses
 
   validates :name,
     presence: true,
     length: { maximum: 20 }
+
+  #TODO TeamMember側でdependent: :destroyとしたけど削除されないので暫定対応
+  after_destroy do |record|
+    TeamMember.destroy_all({ team_id: record.id })
+  end
+
+  #TODO assosiationでどうにかしたいけど方法がわからないので、とりあえず普通のメソッドで実装
+  def games
+    (self.home_games | self.away_games).sort {|x, y| x.the_date <=> y.the_date}
+  end
 
 end

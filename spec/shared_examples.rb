@@ -23,3 +23,14 @@ shared_examples_for :can_not_find_by_id do |model, id|
   it { ->{ model.class.find(subject.id) }.should raise_error(ActiveRecord::RecordNotFound) }
 end
 
+shared_examples_for :when_model_is_new do |model|
+  subject { model }
+  its(:valid?) { should_not be_true }
+  its(:save) { should_not be_true }
+end
+
+shared_examples_for :when_model_is_valid do |model|
+  subject { model }
+  its(:valid?) { should be_true }
+  its(:save) { should be_true }
+end

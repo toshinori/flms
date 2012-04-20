@@ -6,16 +6,8 @@ describe Team do
   let(:valid_model) { FactoryGirl.build(:team_base) }
   let(:created_model) { FactoryGirl.create(:team_base) }
 
-  context 'when new' do
-    its(:valid?) { should_not be_true }
-    its(:save) { should_not be_true }
-  end
-
-  describe 'valid model' do
-    subject { valid_model }
-    its(:valid?) { should be_true }
-    its(:save) { should be_true }
-  end
+  it_behaves_like :when_model_is_new, Team.new
+  it_behaves_like :when_model_is_valid, FactoryGirl.create(:team_base)
 
   context 'after save' do
     it { ->{ created_model }.should change(Team, :count).by(1) }
@@ -37,11 +29,12 @@ describe Team do
   end
 
   describe 'association' do
-    pending "can't set assosiations yet."
     it { should have_many(:members).through(:team_members) }
+    it { should have_many(:players) }
+    it { should have_many(:managers) }
     it { should have_many(:home_games) }
-    # it { should have_many(:games) }
-    # it { should have_many(:game_pregresses) }
+    it { should have_many(:away_games) }
+    it { should have_many(:game_progresses) }
   end
 
   describe 'attributes' do
@@ -85,6 +78,7 @@ describe Team do
       subject { @team }
       let!(:players_count) { subject.members.find_all_by_member_type(Member::MemberTypes[:player]).count }
       its('players.count') { should == players_count}
+      it { subject.players.all {|p| p.member_type  == Member::MemberTypes[:player]}.should be_true }
     end
   end
 
@@ -99,6 +93,24 @@ describe Team do
       subject { @team }
       let!(:managers_count) { subject.members.find_all_by_member_type(Member::MemberTypes[:manager]).count }
       its('managers.count') { should == managers_count }
+      it { subject.managers.all {|p| p.member_type  == Member::MemberTypes[:manager]}.should be_true }
     end
   end
+
+  describe 'home_games' do
+    pending 'have not desigined yat.'
+  end
+
+  describe 'away_games' do
+    pending 'have not desigined yat.'
+  end
+
+  describe 'games' do
+    pending 'have not desigined yat.'
+  end
+
+  describe 'game_progresses' do
+    pending 'have not desigined yat.'
+  end
 end
+

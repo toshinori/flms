@@ -1,32 +1,24 @@
 require 'spec_helper'
+require 'shared_examples.rb'
 
 describe Game do
 
-  context 'when new' do
-    its(:valid?) { should_not be_true }
-    its(:save) { should_not be_true }
-  end
-
-  context 'when valid' do
-    subject {
-      home = FactoryGirl.create(:team_base)
-      away = FactoryGirl.create(:team_base)
-      Game.new({ home_team_id: home.id, away_team_id: away.id })
-    }
-    its(:valid?) { should be_true }
-    its(:save) { should be_true }
-  end
+  it_behaves_like :when_model_is_new, Game.new
+  it_behaves_like :when_model_is_valid, FactoryGirl.create(:game_base, valid: true)
 
   describe 'association' do
+    it { should belong_to(:home_team) }
+    it { should belong_to(:away_team) }
     it { should have_many(:progresses) }
   end
 
-  context 'home and away is same teams' do
+  context 'when set same team id' do
     subject {
       team = FactoryGirl.create(:team_base)
       Game.new({ home_team_id: team.id, away_team_id: team.id })
     }
     its(:valid?) { should_not be_true }
-    its(:save) { should be_false }
+    its(:save) { should_not be_true }
   end
+
 end
