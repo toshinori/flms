@@ -1,5 +1,6 @@
 class Member < ActiveRecord::Base
-  MemberTypes = { none: 0, player: 1, manager: 2}
+  MemberTypes = { none: 0, player: 1, manager: 2}.freeze
+  UniformNumberRange = (1..99).freeze
 
   has_one :team_member
   has_one :team, through: :team_member
@@ -20,4 +21,13 @@ class Member < ActiveRecord::Base
 
   validates :member_type,
     inclusion: { in: (Member::MemberTypes.values) }
+
+  validates :uniform_number,
+    allow_blank: true,
+    numericality: {
+      only_integer: true,
+      greater_than_or_equal_to: UniformNumberRange.first,
+      less_than_or_equal_to: UniformNumberRange.last
+    }
+
 end

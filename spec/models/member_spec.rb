@@ -40,21 +40,21 @@ describe Member do
     it {->{ target.delete }.should change(Member, :count).by(-1) }
   end
 
-  describe '#first_name' do
+  describe 'first_name' do
     names = { empty: '', length_over: 'あいうえおあいうえおあ' }
     it_behaves_like :to_invalid_after_attr_change , 'first_name', names do
       let(:target_model) { valid_model }
     end
   end
 
-  describe '#last_name' do
+  describe 'last_name' do
     names = { empty: '', length_over: 'あいうえおあいうえおあ' }
     it_behaves_like :to_invalid_after_attr_change , 'last_name', names do
       let(:target_model) { valid_model }
     end
   end
 
-  describe '#player_number' do
+  describe 'player_number' do
     context 'when set nil' do
       subject { FactoryGirl.build(:member_base, set_player_number: false) }
       its(:player_number) { should be_nil }
@@ -68,11 +68,47 @@ describe Member do
     end
   end
 
-  describe '#member_type' do
+  describe 'member_type' do
     invalids = { nil: nil, not_include: (Member::MemberTypes.max{ |x, y| x[1] <=> y[1] }[1] + 1) }
     it_behaves_like :to_invalid_after_attr_change , 'member_type', invalids do
       let(:target_model) { valid_model }
     end
   end
 
+  describe 'uniform_number' do
+    before (:each) {
+      @range = Member::UniformNumberRange
+    }
+
+    context 'when set nil' do
+      subject { FactoryGirl.build(:member_base) }
+      its(:uniform_number) { should be_nil }
+      its(:valid?) { should_not be_false }
+      its(:save) { should_not be_false }
+    end
+
+    context "when set minimum value" do
+      subject { valid_model.uniform_number = @range.first; valid_model }
+      its(:uniform_number) { should  == @range.first}
+      its(:valid?) { should be_true }
+      its(:save) { should be_true }
+    end
+
+    context "when set maximum value" do
+      subject { valid_model.uniform_number = @range.last; valid_model }
+      its(:uniform_number) { should  == @range.last }
+      its(:valid?) { should be_true }
+      its(:save) { should be_true }
+    end
+
+    check_numbers = {
+      not_number: 'aaa',
+      lower_min:  Member::UniformNumberRange.first - 1,
+      over_max:  Member::UniformNumberRange.last + 1
+    }
+
+    it_behaves_like :to_invalid_after_attr_change , 'uniform_number', check_numbers do
+      let(:target_model) { valid_model }
+    end
+  end
 end
