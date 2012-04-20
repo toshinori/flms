@@ -38,6 +38,7 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'rails-erd'
 end
 
 # To use ActiveModel has_secure_password
