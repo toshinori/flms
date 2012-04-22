@@ -127,5 +127,30 @@ FactoryGirl.define do
 
   end
 
+  # GameTeamモデル
+  factory :game_team_base, class: GameTeam do
+    game_id nil
+    team_id nil
+    home_or_away 0
+
+    trait :home_team do
+      game_id { FactoryGirl.create(:game_base, valid: true).id }
+      team_id { FactoryGirl.create(:team_base).id }
+      home_or_away 1
+    end
+
+    trait :away_team do
+      game_id { FactoryGirl.create(:game_base, valid: true).id }
+      team_id { FactoryGirl.create(:team_base).id }
+      home_or_away 2
+    end
+
+    # ホームチーム
+    factory :game_team_home, traits: [:home_team]
+    # アウェイチーム
+    factory :game_team_away, traits: [:away_team]
+
+  end
+
 end
 

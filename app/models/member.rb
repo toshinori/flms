@@ -4,6 +4,8 @@ class Member < ActiveRecord::Base
 
   has_one :team_member
   has_one :team, through: :team_member
+  has_many :game_members
+
   has_many :game_progresses
 
   validates :first_name,
