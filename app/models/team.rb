@@ -15,13 +15,15 @@ class Team < ActiveRecord::Base
     conditions: { member_type: Member::MemberTypes[:manager] }
 
   has_many :home_games,
-    class_name: Game,
-    foreign_key: :home_team_id,
+    class_name: GameTeam,
+    foreign_key: :team_id,
+    conditions: { home_or_away: GameTeam::HomeOrAway[:home] },
     order: { the_date: :asc }
 
   has_many :away_games,
-    class_name: Game,
-    foreign_key: :away_team_id,
+    class_name: GameTeam,
+    foreign_key: :team_id,
+    conditions: { home_or_away: GameTeam::HomeOrAway[:away] },
     order: { the_date: :asc }
 
   has_many :game_progresses

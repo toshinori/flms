@@ -40,6 +40,7 @@ describe Member do
     it {->{ target.delete }.should change(Member, :count).by(-1) }
   end
 
+  #TODO validationの検証を専用のマッチャを使うようにする
   describe 'first_name' do
     names = { empty: '', length_over: 'あいうえおあいうえおあ' }
     it_behaves_like :to_invalid_after_attr_change , 'first_name', names do

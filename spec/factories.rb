@@ -85,17 +85,86 @@ FactoryGirl.define do
   # Gameモデル
   factory :game_base, class: Game do
     ignore do
-      valid false
+      create_teams false
     end
-    home_team_id { FactoryGirl.create(:team_base).id if valid }
-    away_team_id { FactoryGirl.create(:team_base).id if valid }
+
+    the_date { Time.now }
+    start_time nil
+    end_time nil
+
+    after_create do |g, evalator|
+      if evalator.create_teams
+        home = FactoryGirl.create(:team_base)
+        away = FactoryGirl.create(:team_base)
+        FactoryGirl.create(:game_team_base,
+                           { game_id: g.id, team_id: home.id, home_or_away: GameTeam::HomeOrAway[:home] })
+        FactoryGirl.create(:game_team_base,
+                           { game_id: g.id, team_id: away.id, home_or_away: GameTeam::HomeOrAway[:away] })
+      end
+    end
   end
 
   # GameMemberモデル
-  factory :game_member_base, class: GameMember do
+  # factory :game_member_base, class: GameMember do
+    # game_id nil
+    # team_id nil
+    # member_id nil
+    # starting_status 0
+  # end
+
+  # factory :game_member_base, class: GameMember do
+    # ignore do
+      # valid false
+      # game FactoryGirl.create(:game_base, valid: true)
+    # end
+    # game_team_id nil
+    # member_id nil
+    # starting_status 0
+  # end
+
+  # GameTeamモデル
+  factory :game_team_base, class: GameTeam do
     game_id nil
     team_id nil
-    member_id nil
+    home_or_away GameTeam::HomeOrAway[:none]
+    created_at Time.now
+
+
+    trait :home_team do
+      game_id { FactoryGirl.create(:game_base).id }
+      team_id { FactoryGirl.create(:team_base).id }
+      home_or_away GameTeam::HomeOrAway[:home]
+    end
+
+    trait :away_team do
+      game_id { FactoryGirl.create(:game_base).id }
+      team_id { FactoryGirl.create(:team_base).id }
+      home_or_away GameTeam::HomeOrAway[:away]
+    end
+
+    trait :home_team_not_game_id do
+      team_id { FactoryGirl.create(:team_base).id }
+      home_or_away GameTeam::HomeOrAway[:home]
+    end
+
+    trait :away_team_not_game_id do
+      team_id { FactoryGirl.create(:team_base).id }
+      home_or_away GameTeam::HomeOrAway[:home]
+    end
+
+    factory :game_team_home, traits: [:home_team]
+    factory :game_team_home_no_game_id, traits: [:home_team_not_game_id]
+
+    factory :game_team_away, traits: [:away_team]
+    factory :game_team_away_no_game_id, traits: [:away_team_not_game_id]
+  end
+
+  factory :game_member_base, class: GameMember do
+    ignore do
+      valid false
+    end
+    game_team_id { FactoryGirl.create(:game_team_home).id if valid }
+    member_id { FactoryGirl.create(:player).id if valid }
     starting_status 0
   end
 
@@ -124,31 +193,6 @@ FactoryGirl.define do
         end
       end
     end
-
-  end
-
-  # GameTeamモデル
-  factory :game_team_base, class: GameTeam do
-    game_id nil
-    team_id nil
-    home_or_away 0
-
-    trait :home_team do
-      game_id { FactoryGirl.create(:game_base, valid: true).id }
-      team_id { FactoryGirl.create(:team_base).id }
-      home_or_away 1
-    end
-
-    trait :away_team do
-      game_id { FactoryGirl.create(:game_base, valid: true).id }
-      team_id { FactoryGirl.create(:team_base).id }
-      home_or_away 2
-    end
-
-    # ホームチーム
-    factory :game_team_home, traits: [:home_team]
-    # アウェイチーム
-    factory :game_team_away, traits: [:away_team]
 
   end
 

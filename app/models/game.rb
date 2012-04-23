@@ -1,23 +1,16 @@
 # -*- coding: utf-8 -*-
 class Game < ActiveRecord::Base
-  belongs_to :home_team,
-    foreign_key: :home_team_id,
-    class_name: Team
-
-  belongs_to :away_team,
-    foreign_key: :away_team_id,
-    class_name: Team
+  has_many :teams,
+    class_name: GameTeam,
+    uniq: true,
+    order: :home_or_away,
+    dependent: :destroy
 
   has_many :progresses,
     class_name: GameProgress
 
-  validates :home_team_id,
+  validates :the_date,
     presence: true
 
-  validates :away_team_id,
-    presence: true
-
-  validates_with FieldsEquivalentValidator,
-    fields: [:home_team_id, :away_team_id]
-
+  #TODO 開催日、開始・終了時刻の検証は後回し
 end

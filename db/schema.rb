@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421171833) do
+ActiveRecord::Schema.define(:version => 20120423063020) do
 
   create_table "game_members", :force => true do |t|
-    t.integer  "game_id"
-    t.integer  "team_id"
     t.integer  "member_id"
     t.integer  "starting_status"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.integer  "team_member_id"
     t.integer  "game_team_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "uniform_number"
   end
 
   create_table "game_progresses", :force => true do |t|
@@ -34,18 +34,17 @@ ActiveRecord::Schema.define(:version => 20120421171833) do
   end
 
   create_table "game_teams", :force => true do |t|
-    t.integer  "game_id"
+    t.integer  "team_id"
     t.integer  "home_or_away"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.integer  "team_id"
+    t.integer  "game_id"
+    t.string   "name"
   end
 
   create_table "games", :force => true do |t|
-    t.integer  "home_team_id"
-    t.integer  "away_team_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.date     "the_date"
     t.time     "start_time"
     t.time     "end_time"
