@@ -37,7 +37,7 @@ FactoryGirl.define do
 
   # 選手管理番号を適当に作る
   sequence :player_number do
-    sprintf("%05d", (rand(99998) + 1) )
+    sprintf("%010d", (rand(9999999998) + 1) )
   end
 
   # 背番号を適当に作る

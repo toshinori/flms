@@ -2,6 +2,7 @@ class Member < ActiveRecord::Base
   MemberTypes = { none: 0, player: 1, manager: 2}.freeze
   UniformNumberRange = (1..99).freeze
 
+  belongs_to :position
   has_one :team_member
   has_one :team, through: :team_member
   has_many :game_members
@@ -18,7 +19,7 @@ class Member < ActiveRecord::Base
 
   validates :player_number,
     allow_blank: true,
-    format: {with: %r(^\d{5}$)i},
+    format: {with: %r(^\d{10}$)i},
     uniqueness: true
 
   validates :member_type,
@@ -32,4 +33,5 @@ class Member < ActiveRecord::Base
       less_than_or_equal_to: UniformNumberRange.last
     }
 
+    #TODO positionのassociationsはあとで検討
 end

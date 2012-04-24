@@ -15,6 +15,21 @@ shared_examples_for :to_invalid_after_attr_change do |name, test_values|
   end
 end
 
+shared_examples_for :not_invalid_after_attr_change do |name, test_values|
+    describe name do
+      test_values.each do |value|
+        context "when set '#{value}'(valid value)" do
+          subject { target_model }
+          it { ->{ subject[name] = value}.should_not change(subject, :invalid?).from(true).to(false)}
+          it {
+            subject[name] = value
+            should have_at_most(0).errors_on(name)
+          }
+        end
+    end
+  end
+end
+
 shared_examples_for :can_find_by_id do |model|
   it { ->{ model.class.find(subject.id) }.should_not raise_error(ActiveRecord::RecordNotFound) }
 end
