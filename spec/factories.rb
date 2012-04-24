@@ -20,13 +20,11 @@ FactoryGirl.define do
     updated_at DateTime.now
 
     trait :type_player do
-      # member_type Member::MemberType[:player]
-      member_type 1
+      member_type Member::MemberTypes[:player]
     end
 
     trait :type_manager do
-      # member_type Member::MemberType[:manager]
-      member_type 2
+      member_type Member::MemberTypes[:manager]
     end
 
     # 選手
@@ -160,41 +158,93 @@ FactoryGirl.define do
   end
 
   factory :game_member_base, class: GameMember do
-    ignore do
-      valid false
+    game_team_id { FactoryGirl.create(:game_team_home).id }
+
+    trait :game_member_player_type do
+      member_id { FactoryGirl.create(:player).id }
     end
-    game_team_id { FactoryGirl.create(:game_team_home).id if valid }
-    member_id { FactoryGirl.create(:player).id if valid }
+
+    trait :game_member_manager_type do
+      member_id { FactoryGirl.create(:manager).id }
+    end
+
     starting_status 0
+
+    factory :game_member_player, traits: [:game_member_player_type]
+    factory :game_member_manager, traits: [:game_member_manager_type]
+  end
+
+  factory :game_can_start, class: Game do
+    the_date { Date.today }
+    start_time nil
+    end_time nil
+
+    after_create do |g, evalator|
+      players_count = 20
+      (GameTeam::HomeOrAway.values - [GameTeam::HomeOrAway[:none]]).each do |ha|
+        players = FactoryGirl.create_list(:player,
+                                          players_count,
+                                          set_player_number: true,
+                                          set_uniform_number: false
+                                         )
+        manager = FactoryGirl.create(:manager)
+        team = FactoryGirl.create(:team_base)
+
+        players.each {|p| team.members << p}
+        team.members << manager
+
+        game_team = FactoryGirl.create(:game_team_base,
+                                       { game_id: g.id, team_id: team.id, home_or_away: ha }
+                                      )
+
+        starting_member_count = 11
+        game_players =
+          players.collect do |p|
+            starting = GameMember::StartingStatuses[:reserve]
+            if GameMember.find_all_by_game_team_id(game_team.id).count < starting_member_count
+              starting = GameMember::StartingStatuses[:starting]
+            end
+
+            FactoryGirl.create(:game_member_player,
+                               { game_team_id: game_team.id, member_id: p.id, starting_status: starting })
+          end
+        game_team.members.push(game_players)
+
+        game_manager =
+            FactoryGirl.create(:game_member_manager, { game_team_id: game_team.id, member_id: manager.id })
+
+        g.teams << game_team
+      end
+    end
   end
 
   # ちゃんとした試合のデータ
-  factory :game_can_start , class: Game do
-    home_team_id { FactoryGirl.create(:team_base, manager_count: 1, player_count: 20).id }
-    away_team_id { FactoryGirl.create(:team_base, manager_count: 1, player_count: 20).id }
+  # factory :game_can_start , class: Game do
+    # home_team_id { FactoryGirl.create(:team_base, manager_count: 1, player_count: 20).id }
+    # away_team_id { FactoryGirl.create(:team_base, manager_count: 1, player_count: 20).id }
 
-    after_create do |game, evaluator|
-      # それぞれのチームのGameMemberを生成
-      team_ids = [ game.home_team_id, game.away_team_id ]
-      team_ids.each do |team_id|
-        # 選手を登録
-        players = Team.find(team_id).players
-        players.each do |p|
-          # スタメンと控えの判定
-          starting = 1
-          starting = 2 if GameMember.find_all_by_game_id_and_team_id(game.id, team_id).count >= 11
-          FactoryGirl.create(:game_member_base,
-                             {game_id: game.id, team_id: team_id, member_id: p.id, starting_status: starting})
-        end
-        # 監督を登録
-        managers = Team.find(team_id).managers
-        managers.each do |m|
-          FactoryGirl.create(:game_member_base, { game_id: game.id, team_id: team_id, member_id: m.id })
-        end
-      end
-    end
+    # after_create do |game, evaluator|
+      # # それぞれのチームのGameMemberを生成
+      # team_ids = [ game.home_team_id, game.away_team_id ]
+      # team_ids.each do |team_id|
+        # # 選手を登録
+        # players = Team.find(team_id).players
+        # players.each do |p|
+          # # スタメンと控えの判定
+          # starting = 1
+          # starting = 2 if GameMember.find_all_by_game_id_and_team_id(game.id, team_id).count >= 11
+          # FactoryGirl.create(:game_member_base,
+                             # {game_id: game.id, team_id: team_id, member_id: p.id, starting_status: starting})
+        # end
+        # # 監督を登録
+        # managers = Team.find(team_id).managers
+        # managers.each do |m|
+          # FactoryGirl.create(:game_member_base, { game_id: game.id, team_id: team_id, member_id: m.id })
+        # end
+      # end
+    # end
 
-  end
+  # end
 
 end
 

@@ -33,5 +33,13 @@ class Member < ActiveRecord::Base
       less_than_or_equal_to: UniformNumberRange.last
     }
 
+  def player?
+    self.member_type == MemberTypes[:player]
+  end
+
+  def manager?
+    self.member_type == MemberTypes[:manager]
+  end
+
     #TODO positionのassociationsはあとで検討
 end

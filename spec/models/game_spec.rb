@@ -17,4 +17,11 @@ describe Game do
     it { should validate_presence_of(:the_date) }
   end
 
+  describe 'home_team' do
+    pending 'have not desigined.'
+  end
+
+  describe 'away_team' do
+    pending 'have not desigined.'
+  end
 end

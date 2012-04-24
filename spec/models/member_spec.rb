@@ -81,6 +81,22 @@ describe Member do
     it_behaves_like :to_invalid_after_attr_change , 'member_type', invalids do
       let(:target_model) { valid_model }
     end
+
+    it_behaves_like :not_invalid_after_attr_change , 'member_type', Member::MemberTypes.values do
+      let(:target_model) { valid_model }
+    end
+
+    context 'when set player' do
+      subject { FactoryGirl.create(:player) }
+      its(:player?) { should be_true }
+      its(:manager?) { should_not be_true }
+    end
+
+    context 'when set manager' do
+      subject { FactoryGirl.create(:manager) }
+      its(:player?) { should_not be_true }
+      its(:manager?) { should be_true }
+    end
   end
 
   describe 'uniform_number' do
@@ -103,4 +119,5 @@ describe Member do
       let(:target_model) { valid_model }
     end
   end
+
 end

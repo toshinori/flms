@@ -9,3 +9,12 @@
 Position::Positions.each do |name|
   Position.find_or_create_by_name(name)
 end
+
+
+Foul::FoulSeeds.each do |foul|
+  Foul.find_or_create_by_symbol(foul[:symbol]) do |f|
+    f.description = f[:description]
+    f.foul_type = f[:foul_type]
+  end
+end
+

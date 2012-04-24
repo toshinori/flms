@@ -6,26 +6,31 @@ describe GameMember do
 
   describe 'associations' do
     it { should belong_to(:team) }
-    it { should belong_to(:member) }
+    it { should belong_to(:master) }
+    it { should belong_to(:position) }
   end
 
   describe 'validations' do
     it { should validate_presence_of(:game_team_id) }
     it { should validate_presence_of(:member_id) }
-    it { should ensure_inclusion_of(:starting_status).in_range(GameMember::StatingStatuses.values) }
+    it { should ensure_inclusion_of(:starting_status).in_range(GameMember::StartingStatuses.values) }
   end
 
   context 'after save' do
-    subject { FactoryGirl.create(:game_member_base, valid: true) }
+    subject { FactoryGirl.create(:game_member_player) }
     its(:first_name) { should_not be_blank }
     its(:last_name) { should_not be_blank }
   end
 
-   # describe 'starting_status' do
-    # invalids = { nil: nil, not_include: (GameMember::StartingStatus.max{ |x, y| x[1] <=> y[1] }[1] + 1) }
-    # it_behaves_like :to_invalid_after_attr_change , 'starting_status', invalids do
-      # let(:target_model) { valid_model }
-    # end
-  # end
+  context 'when set player' do
+    subject { FactoryGirl.create(:game_member_player) }
+    its(:player?) { should be_true }
+    its(:manager?) { should_not be_true }
+  end
 
+  context 'when set manager' do
+    subject { FactoryGirl.create(:game_member_manager) }
+    its(:player?) { should_not be_true }
+    its(:manager?) { should be_true }
+  end
 end
