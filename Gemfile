@@ -39,6 +39,7 @@ group :development, :test do
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'rails-erd'
+  gem 'railroady'
 end
 
 # To use ActiveModel has_secure_password

@@ -106,6 +106,7 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
+    railroady (1.0.7)
     rails (3.2.2)
       actionmailer (= 3.2.2)
       actionpack (= 3.2.2)
@@ -203,6 +204,7 @@ DEPENDENCIES
   guard-spork
   jquery-rails
   launchy
+  railroady
   rails (= 3.2.2)
   rails-erd
   rails3_acts_as_paranoid
