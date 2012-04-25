@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class Game < ActiveRecord::Base
+  GameTime = (0..999).freeze
   has_many :teams,
     class_name: GameTeam,
     uniq: true,

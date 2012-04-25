@@ -11,6 +11,10 @@ class GameMember < ActiveRecord::Base
 
   belongs_to :position
 
+  has_many :fouls,
+    class_name: GameFoul,
+    order:  :occurrence_time
+
   validates :game_team_id,
     presence: true
 

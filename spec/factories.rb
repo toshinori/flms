@@ -102,24 +102,6 @@ FactoryGirl.define do
     end
   end
 
-  # GameMemberモデル
-  # factory :game_member_base, class: GameMember do
-    # game_id nil
-    # team_id nil
-    # member_id nil
-    # starting_status 0
-  # end
-
-  # factory :game_member_base, class: GameMember do
-    # ignore do
-      # valid false
-      # game FactoryGirl.create(:game_base, valid: true)
-    # end
-    # game_team_id nil
-    # member_id nil
-    # starting_status 0
-  # end
-
   # GameTeamモデル
   factory :game_team_base, class: GameTeam do
     game_id nil
@@ -172,6 +154,28 @@ FactoryGirl.define do
 
     factory :game_member_player, traits: [:game_member_player_type]
     factory :game_member_manager, traits: [:game_member_manager_type]
+  end
+
+  # 発生時間
+  sequence :occurrence_time do
+    rand(150)
+  end
+
+  factory :game_foul_base, class: GameFoul do
+    game_member_id {FactoryGirl.create(:game_member_player).id}
+    occurrence_time {FactoryGirl.generate(:occurrence_time)}
+
+    trait :type_caution do
+      foul_id { Foul.find_by_symbol(
+        Foul::FoulSeeds.detect{ |f| f[:foul_type] == Foul::FoulTypes[:caution] }[:symbol]).id }
+    end
+    trait :type_dismissal do
+      foul_id { Foul.find_by_symbol(
+        Foul::FoulSeeds.detect{ |f| f[:foul_type] == Foul::FoulTypes[:dismissal] }[:symbol]).id }
+    end
+
+    factory :game_foul_caution, traits: [:type_caution]
+    factory :game_foul_dismissal, traits: [:type_dismissal]
   end
 
   factory :game_can_start, class: Game do

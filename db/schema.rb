@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425041903) do
+ActiveRecord::Schema.define(:version => 20120425070131) do
 
   create_table "fouls", :force => true do |t|
     t.string   "symbol"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(:version => 20120425041903) do
     t.integer  "foul_type"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "game_fouls", :force => true do |t|
+    t.integer  "game_member_id"
+    t.integer  "occurrence_time"
+    t.integer  "foul_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "game_members", :force => true do |t|

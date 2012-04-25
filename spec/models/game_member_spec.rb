@@ -8,6 +8,7 @@ describe GameMember do
     it { should belong_to(:team) }
     it { should belong_to(:master) }
     it { should belong_to(:position) }
+    it { should have_many(:fouls) }
   end
 
   describe 'validations' do
