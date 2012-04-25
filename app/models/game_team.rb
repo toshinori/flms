@@ -18,7 +18,8 @@ class GameTeam < ActiveRecord::Base
     presence: true
 
   validates :home_or_away,
-    inclusion: { in: (HomeOrAway.values) }
+    inclusion: { in: (HomeOrAway.values) },
+    uniqueness: { scope: :game_id}
 
   before_save do |r|
     r.name = r.master.name

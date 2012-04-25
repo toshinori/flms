@@ -84,4 +84,27 @@ describe GameTeam do
     its(:save) { should be_false }
   end
 
+  context 'when set 2 home teams' do
+    subject {
+      home = FactoryGirl.create(:game_team_home)
+      GameTeam.new({
+        game_id: home.game_id,
+        team_id: FactoryGirl.create(:team_base).id,
+        home_or_away: GameTeam::HomeOrAway[:home]})
+    }
+    its(:valid?) { should_not be_true }
+    its(:save) { should be_false }
+  end
+
+  context 'when set 2 away teams' do
+    subject {
+      home = FactoryGirl.create(:game_team_away)
+      GameTeam.new({
+        game_id: home.game_id,
+        team_id: FactoryGirl.create(:team_base).id,
+        home_or_away: GameTeam::HomeOrAway[:away]})
+    }
+    its(:valid?) { should_not be_true }
+    its(:save) { should be_false }
+  end
 end
