@@ -22,7 +22,7 @@ end
 
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
-
+gem 'rails3_acts_as_paranoid'
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'

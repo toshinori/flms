@@ -74,6 +74,26 @@ describe Member do
     it_behaves_like :not_invalid_after_attr_change , 'player_number', valid_numbers do
       let(:target_model) { valid_model }
     end
+
+    context 'when set exists player number' do
+      subject {
+        exists = FactoryGirl.create(:player, set_player_number: true)
+        FactoryGirl.build(:player, { player_number: exists.player_number })
+      }
+      its(:valid?) { should_not be_true }
+      its(:save) { should_not be_true }
+    end
+
+    context 'when set destroied player number' do
+      subject {
+        exists = FactoryGirl.create(:player, set_player_number: true)
+        player_number = exists.player_number
+        exists.destroy
+        FactoryGirl.build(:player, { player_number: player_number})
+      }
+      its(:valid?) { should_not be_true }
+      its(:save) { should_not be_true }
+    end
   end
 
   describe 'member_type' do

@@ -1,5 +1,8 @@
 class Team < ActiveRecord::Base
-  has_many :team_members
+  acts_as_paranoid
+
+  has_many :team_members,
+    dependent: :destroy
 
   has_many :members,
     through: :team_members
@@ -33,9 +36,9 @@ class Team < ActiveRecord::Base
     length: { maximum: 20 }
 
   #TODO TeamMember側でdependent: :destroyとしたけど削除されないので暫定対応
-  after_destroy do |record|
-    TeamMember.destroy_all({ team_id: record.id })
-  end
+  # after_destroy do |record|
+    # TeamMember.destroy_all({ team_id: record.id })
+  # end
 
   #TODO assosiationでどうにかしたいけど方法がわからないので、とりあえず普通のメソッドで実装
   def games

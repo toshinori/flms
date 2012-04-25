@@ -1,6 +1,8 @@
 class TeamMember < ActiveRecord::Base
-  belongs_to :team, dependent: :destroy
-  belongs_to :member, dependent: :destroy
+  acts_as_paranoid
+
+  belongs_to :team
+  belongs_to :member
 
   validates :team_id,
     presence: false,

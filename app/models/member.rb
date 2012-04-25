@@ -1,12 +1,14 @@
 class Member < ActiveRecord::Base
+  acts_as_paranoid
+  validates_as_paranoid
+
   MemberTypes = { none: 0, player: 1, manager: 2}.freeze
   UniformNumberRange = (1..99).freeze
 
   belongs_to :position
-  has_one :team_member
+  has_one :team_member, dependent: :destroy
   has_one :team, through: :team_member
   has_many :game_members
-
   has_many :game_progresses
 
   validates :first_name,
@@ -21,6 +23,10 @@ class Member < ActiveRecord::Base
     allow_blank: true,
     format: {with: %r(^\d{10}$)i},
     uniqueness: true
+
+  # 論理削除も考慮してユニークチェックするなら下記を使用する
+  # その際、通常のuniqueness: trueは削除
+  # validates_uniqueness_of_without_deleted :player_number
 
   validates :member_type,
     inclusion: { in: (Member::MemberTypes.values) }
