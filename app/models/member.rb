@@ -39,6 +39,14 @@ class Member < ActiveRecord::Base
       less_than_or_equal_to: UniformNumberRange.last
     }
 
+  # validates_with DateFormatValidator,
+    # allow_nil: true,
+    # field: :birth_day
+
+  # validates_each :birth_day, allow_nil: true do |record, atr, value|
+    # Date.parse(value) rescue record.errors[attr] << 'invalid format.'
+  # end
+
   def player?
     self.member_type == MemberTypes[:player]
   end

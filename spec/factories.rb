@@ -178,6 +178,11 @@ FactoryGirl.define do
     factory :game_foul_dismissal, traits: [:type_dismissal]
   end
 
+  factory :game_goal_base, class: GameGoal do
+    game_member_id {FactoryGirl.create(:game_member_player).id}
+    occurrence_time {FactoryGirl.generate(:occurrence_time)}
+  end
+
   factory :game_can_start, class: Game do
     the_date { Date.today }
     start_time nil

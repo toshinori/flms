@@ -15,6 +15,10 @@ class GameMember < ActiveRecord::Base
     class_name: GameFoul,
     order:  :occurrence_time
 
+  has_many :goals,
+    class_name: GameGoal,
+    order: :occurrence_time
+
   validates :game_team_id,
     presence: true
 

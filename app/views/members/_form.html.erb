@@ -1,43 +1,56 @@
 <%= form_for @member, :html => { :class => 'form-horizontal' } do |f| %>
-  <% if @member.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
-
-      <ul>
-      <% @member.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <div class="control-group">
+    <%= f.label :last_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :last_name, :class => 'text_field' %>
     </div>
-  <% end %>
-
-  <fieldset>
-    <legend><%= controller.action_name.capitalize %> /Member</legend>
-
-    <div class="control-group">
-      <%= f.label :last_name, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :last_name, :class => 'text_field' %>
-      </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :first_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :first_name, :class => 'text_field' %>
     </div>
-
-    <div class="control-group">
-      <%= f.label :first_name, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :first_name, :class => 'text_field' %>
-      </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :player_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :player_number, :class => 'text_field' %>
     </div>
-
-    <div class="control-group">
-      <%= f.label :player_number, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :player_number, :class => 'text_field' %>
-      </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :member_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :member_type, :class => 'number_field' %>
     </div>
-
-    <div class="form-actions">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to 'Cancel', members_path, :class => 'btn' %>
+  </div>
+  <div class="control-group">
+    <%= f.label :uniform_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :uniform_number, :class => 'number_field' %>
     </div>
-  </fieldset>
+  </div>
+  <div class="control-group">
+    <%= f.label :position_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :position_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :deleted_at, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :deleted_at, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :birth_day, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.date_select :birth_day, :class => 'date_select' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                members_path, :class => 'btn' %>
+  </div>
 <% end %>

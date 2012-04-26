@@ -23,6 +23,8 @@ end
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 gem 'rails3_acts_as_paranoid'
+gem 'i18n_generators'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
