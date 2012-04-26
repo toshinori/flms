@@ -18,12 +18,11 @@ group :assets do
   gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'twitter-bootstrap-rails'
 end
 
 gem 'jquery-rails'
-gem 'twitter-bootstrap-rails'
 gem 'rails3_acts_as_paranoid'
-gem 'i18n_generators'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -42,6 +41,7 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'rails-erd'
   gem 'railroady'
+  gem 'i18n_generators'
 end
 
 # To use ActiveModel has_secure_password

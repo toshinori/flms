@@ -3,14 +3,11 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:last_name) %></th>
       <th><%= model_class.human_attribute_name(:first_name) %></th>
       <th><%= model_class.human_attribute_name(:player_number) %></th>
       <th><%= model_class.human_attribute_name(:member_type) %></th>
       <th><%= model_class.human_attribute_name(:uniform_number) %></th>
-      <th><%= model_class.human_attribute_name(:position_id) %></th>
-      <th><%= model_class.human_attribute_name(:deleted_at) %></th>
       <th><%= model_class.human_attribute_name(:birth_day) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -19,16 +16,13 @@
   <tbody>
     <% @members.each do |member| %>
       <tr>
-        <td><%= link_to member.id, member_path(member) %></td>
         <td><%= member.last_name %></td>
         <td><%= member.first_name %></td>
         <td><%= member.player_number %></td>
         <td><%= member.member_type %></td>
         <td><%= member.uniform_number %></td>
-        <td><%= member.position_id %></td>
-        <td><%= member.deleted_at %></td>
         <td><%= member.birth_day %></td>
-        <td><%=l member.created_at %></td>
+        <td><%=l member.created_at, format: :short %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_member_path(member), :class => 'btn btn-mini' %>

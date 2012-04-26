@@ -1,0 +1,103 @@
+ja:
+  constant:
+    member_type:
+      none:     指定なし
+      player:   選手
+      manager:  指導者
+
+  activerecord:
+    models:
+      foul: foul  #g
+      game: game  #g
+      game_foul: game_foul  #g
+      game_goal: game_goal  #g
+      game_member: game_member  #g
+      game_progress: game_progress  #g
+      game_team: game_team  #g
+      member: member  #g
+      position: position  #g
+      team: チーム #g
+      team_member: team_member  #g
+
+    attributes:
+      foul:
+        description: description  #g
+        foul_type: foul_type  #g
+        symbol: symbol  #g
+
+      game:
+        away_team: :activerecord.models.away_team  #g
+        end_time: end_time  #g
+        home_team: :activerecord.models.home_team  #g
+        progresses: progresses  #g
+        start_time: start_time  #g
+        teams: teams  #g
+        the_date: the_date  #g
+
+      game_foul:
+        foul: :activerecord.models.foul  #g
+        occurrence_time: occurrence_time  #g
+        player: :activerecord.models.player  #g
+
+      game_goal:
+        occurrence_time: occurrence_time  #g
+        player: :activerecord.models.player  #g
+
+      game_member:
+        first_name: first_name  #g
+        fouls: fouls  #g
+        goals: goals  #g
+        last_name: last_name  #g
+        master: :activerecord.models.master  #g
+        position: :activerecord.models.position  #g
+        starting_status: starting_status  #g
+        team: :activerecord.models.team  #g
+        uniform_number: uniform_number  #g
+
+      game_progress:
+        game: :activerecord.models.game  #g
+        half: half  #g
+        player: :activerecord.models.player  #g
+        team: :activerecord.models.team  #g
+
+      game_team:
+        game: :activerecord.models.game  #g
+        home_or_away: home_or_away  #g
+        master: :activerecord.models.master  #g
+        members: members  #g
+        name: name  #g
+
+      member:
+        birth_day: 誕生日
+        deleted_at: 削除日時
+        first_name: 名
+        game_members: 出場試合
+        game_progresses: game_progresses  #g
+        last_name: 姓
+        member_type: member_type  #g
+        player_number: 選手管理番号
+        position: :activerecord.models.position  #g
+        team: :activerecord.models.team  #g
+        team_member: :activerecord.models.team_member  #g
+        uniform_number: 背番号
+        created_at: 登録日時
+
+      position:
+        name: name  #g
+        players: players  #g
+
+      team:
+        away_games: away_games  #g
+        deleted_at: deleted_at  #g
+        game_progresses: game_progresses  #g
+        home_games: home_games  #g
+        managers: managers  #g
+        members: members  #g
+        name: name  #g
+        players: players  #g
+        team_members: team_members  #g
+
+      team_member:
+        deleted_at: deleted_at  #g
+        member: :activerecord.models.member  #g
+        team: :activerecord.models.team  #g

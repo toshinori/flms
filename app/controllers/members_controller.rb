@@ -1,5 +1,9 @@
 class MembersController < ApplicationController
 
+  before_filter do |c|
+    @member_types = Member::MemberTypesForSelect
+  end
+
   # GET /teams
   # GET /teams.json
   def index

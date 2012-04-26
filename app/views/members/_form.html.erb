@@ -20,7 +20,7 @@
   <div class="control-group">
     <%= f.label :member_type, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :member_type, :class => 'number_field' %>
+      <%= f.select :member_type, @member_types %>
     </div>
   </div>
   <div class="control-group">
@@ -33,12 +33,6 @@
     <%= f.label :position_id, :class => 'control-label' %>
     <div class="controls">
       <%= f.number_field :position_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :deleted_at, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.datetime_select :deleted_at, :class => 'datetime_select' %>
     </div>
   </div>
   <div class="control-group">

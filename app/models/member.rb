@@ -1,9 +1,20 @@
 class Member < ActiveRecord::Base
+  include ArrayUtility
+
   acts_as_paranoid
   validates_as_paranoid
 
-  MemberTypes = { none: 0, player: 1, manager: 2}.freeze
   UniformNumberRange = (1..99).freeze
+  MemberTypesValues = { none: 0, player: 1, manager: 2}
+  Member.const_set(:MemberTypes, MemberTypesValues) unless const_defined?(:MemberTypes)
+  unless const_defined?(:MemberTypesForSelect)
+    Member.const_set(:MemberTypesForSelect,
+                     ArrayUtility.to_select(:MemberTypes, MemberTypesValues))
+  end
+
+  def self.member_types_for_select
+    ArrayUtility.to_select(:MemberTypes, MemberTypesValues)
+  end
 
   belongs_to :position
   has_one :team_member, dependent: :destroy
@@ -55,5 +66,13 @@ class Member < ActiveRecord::Base
     self.member_type == MemberTypes[:manager]
   end
 
+  def member_type_disp
+# "MemberTypes".underscore.singularize
+# model_class.model_name.human.pluralize
+      # default: ! '%Y/%m/%d %H:%M:%S'
+      # long: ! '%Y年%m月%d日(%a) %H時%M分%S秒 %z'
+      # short: ! '%y/%m/%d %H:%M'
+    I18n.t "constant.member_type.player"
+  end
     #TODO positionのassociationsはあとで検討
 end
