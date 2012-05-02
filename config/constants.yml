@@ -1,0 +1,14 @@
+defaults: &defaults
+  uniform_number:
+    min: 1
+    max: 99
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
