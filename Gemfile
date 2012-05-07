@@ -24,6 +24,7 @@ end
 
 gem 'jquery-rails'
 gem 'rails3_acts_as_paranoid'
+gem 'settingslogic'
 
 group :development, :test do
   gem 'rspec-rails'
