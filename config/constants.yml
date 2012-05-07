@@ -2,26 +2,52 @@ defaults: &defaults
   uniform_number:
     min: 1
     max: 99
+
   member_types:
     none: 0
     player: 1
     manager: 2
+
   game_time_range:
     min: 0
     max: 999
+
   home_or_away:
     none: 0
     home: 1
     away: 2
+
   positions:
     - GK
     - DF
     - MF
     - FW
+
   foul_types:
     none: 0
-    caution: 1
-    dismissal: 2
+    caution: &foul_caution
+             !int 1
+    dismissal: &foul_dismissal
+             !int 2
+
+# foul_typeはfoul_typesから参照したいけど
+# 参照するとsettingslogicで型が文字列となってしまうので直接指定
+  fouls:
+    - symbol: 'C1'
+      description: '反スポーツマン的行為'
+      foul_type: 1
+    - symbol: 'C2'
+      description: 'ラフプレイ'
+      foul_type: 1
+    - symbol: 'C3'
+      description: '異議'
+      foul_type: 1
+    - symbol: 'S1'
+      description: '著しく不正なプレイ'
+      foul_type: 2
+    - symbol: 'S2'
+      description: '乱暴な行為'
+      foul_type: 2
 
 development:
   <<: *defaults

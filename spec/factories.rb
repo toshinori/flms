@@ -167,11 +167,11 @@ FactoryGirl.define do
 
     trait :type_caution do
       foul_id { Foul.find_by_symbol(
-        Foul::FoulSeeds.detect{ |f| f[:foul_type] == Foul::FoulTypes[:caution] }[:symbol]).id }
+        Constants.fouls.map{|f| f.symbolize_keys }.detect{ |f| f[:foul_type] == Constants.foul_types[:caution] }[:symbol]).id }
     end
     trait :type_dismissal do
       foul_id { Foul.find_by_symbol(
-        Foul::FoulSeeds.detect{ |f| f[:foul_type] == Foul::FoulTypes[:dismissal] }[:symbol]).id }
+        Constants.fouls.map{|f| f.symbolize_keys }.detect{ |f| f[:foul_type] == Constants.foul_types[:dismissal] }[:symbol]).id }
     end
 
     factory :game_foul_caution, traits: [:type_caution]
