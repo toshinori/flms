@@ -4,14 +4,6 @@ class Member < ActiveRecord::Base
   acts_as_paranoid
   validates_as_paranoid
 
-  # UniformNumberRange = (1..99).freeze
-  # MemberTypesValues = { none: 0, player: 1, manager: 2}
-  # Member.const_set(:MemberTypes, MemberTypesValues) unless const_defined?(:MemberTypes)
-  # unless const_defined?(:MemberTypesForSelect)
-    # Member.const_set(:MemberTypesForSelect,
-                     # ArrayUtility.to_select(:MemberTypes, MemberTypesValues))
-  # end
-
   belongs_to :position
   has_one :team_member, dependent: :destroy
   has_one :team, through: :team_member
@@ -60,15 +52,6 @@ class Member < ActiveRecord::Base
 
   def manager?
     self.member_type == Constants.member_types[:manager]
-  end
-
-  def member_type_disp
-# "MemberTypes".underscore.singularize
-# model_class.model_name.human.pluralize
-      # default: ! '%Y/%m/%d %H:%M:%S'
-      # long: ! '%Y年%m月%d日(%a) %H時%M分%S秒 %z'
-      # short: ! '%y/%m/%d %H:%M'
-    I18n.t "constant.member_type.player"
   end
 
   def self.uniform_number_range

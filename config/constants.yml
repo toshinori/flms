@@ -13,6 +13,11 @@ defaults: &defaults
     none: 0
     home: 1
     away: 2
+  positions:
+    - GK
+    - DF
+    - MF
+    - FW
 
 development:
   <<: *defaults

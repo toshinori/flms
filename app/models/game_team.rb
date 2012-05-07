@@ -1,5 +1,4 @@
 class GameTeam < ActiveRecord::Base
-  # HomeOrAway = { none: 0, home: 1, away: 2 }.freeze
 
   belongs_to :game
 
