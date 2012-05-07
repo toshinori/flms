@@ -8,7 +8,7 @@ describe Foul do
   end
 
   describe 'associations' do
-    pending 'have not desigined.'
+    it { should have_many(:game_fouls) }
   end
 
   describe 'validations' do

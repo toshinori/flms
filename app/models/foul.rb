@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 class Foul < ActiveRecord::Base
+  has_many :game_fouls
+
   validates :symbol,
     uniqueness: true
 

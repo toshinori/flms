@@ -10,6 +10,10 @@ Constants.positions.each do |name|
   Position.find_or_create_by_name(name)
 end
 
+#TODO sqlite専用処理のため他のDBにした場合は変更が必要
+Foul.delete_all
+Foul.connection.execute("delete from sqlite_sequence where name = 'fouls'")
+
 Constants.fouls.map{|foul| foul.symbolize_keys }.each do |foul|
   Foul.find_or_create_by_symbol(foul[:symbol]) do |f|
     f.description = foul[:description]
