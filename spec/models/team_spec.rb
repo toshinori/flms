@@ -76,9 +76,9 @@ describe Team do
       end
 
       subject { @team }
-      let!(:players_count) { subject.members.find_all_by_member_type(Member::MemberTypes[:player]).count }
+      let!(:players_count) { subject.members.find_all_by_member_type(Constants.member_types[:player]).count }
       its('players.count') { should == players_count}
-      it { subject.players.all {|p| p.member_type  == Member::MemberTypes[:player]}.should be_true }
+      it { subject.players.all {|p| p.member_type  == Constants.member_types[:player]}.should be_true }
     end
   end
 
@@ -91,9 +91,9 @@ describe Team do
       end
 
       subject { @team }
-      let!(:managers_count) { subject.members.find_all_by_member_type(Member::MemberTypes[:manager]).count }
+      let!(:managers_count) { subject.members.find_all_by_member_type(Constants.member_types[:manager]).count }
       its('managers.count') { should == managers_count }
-      it { subject.managers.all {|p| p.member_type  == Member::MemberTypes[:manager]}.should be_true }
+      it { subject.managers.all {|p| p.member_type  == Constants.member_types[:manager]}.should be_true }
     end
   end
 

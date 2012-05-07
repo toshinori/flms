@@ -97,12 +97,12 @@ describe Member do
   end
 
   describe 'member_type' do
-    invalids = { nil: nil, not_include: (Member::MemberTypes.max{ |x, y| x[1] <=> y[1] }[1] + 1) }
+    invalids = { nil: nil, not_include: (Constants.member_types.values.max + 1) }
     it_behaves_like :to_invalid_after_attr_change , 'member_type', invalids do
       let(:target_model) { valid_model }
     end
 
-    it_behaves_like :not_invalid_after_attr_change , 'member_type', Member::MemberTypes.values do
+    it_behaves_like :not_invalid_after_attr_change , 'member_type', Constants.member_types.values do
       let(:target_model) { valid_model }
     end
 

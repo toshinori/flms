@@ -10,12 +10,12 @@ class Team < ActiveRecord::Base
   has_many :players,
     through: :team_members,
     source: :member,
-    conditions: { member_type: Member::MemberTypes[:player] }
+    conditions: { member_type: Constants.member_types[:player] }
 
   has_many :managers,
     through: :team_members,
     source: :member,
-    conditions: { member_type: Member::MemberTypes[:manager] }
+    conditions: { member_type: Constants.member_types[:manager] }
 
   has_many :home_games,
     class_name: GameTeam,

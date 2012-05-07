@@ -5,13 +5,12 @@ class Member < ActiveRecord::Base
   validates_as_paranoid
 
   # UniformNumberRange = (1..99).freeze
-  MemberTypesValues = { none: 0, player: 1, manager: 2}
-  Member.const_set(:MemberTypes, MemberTypesValues) unless const_defined?(:MemberTypes)
-  unless const_defined?(:MemberTypesForSelect)
-    Member.const_set(:MemberTypesForSelect,
-                     ArrayUtility.to_select(:MemberTypes, MemberTypesValues))
-  end
-
+  # MemberTypesValues = { none: 0, player: 1, manager: 2}
+  # Member.const_set(:MemberTypes, MemberTypesValues) unless const_defined?(:MemberTypes)
+  # unless const_defined?(:MemberTypesForSelect)
+    # Member.const_set(:MemberTypesForSelect,
+                     # ArrayUtility.to_select(:MemberTypes, MemberTypesValues))
+  # end
 
   belongs_to :position
   has_one :team_member, dependent: :destroy
@@ -37,7 +36,7 @@ class Member < ActiveRecord::Base
   # validates_uniqueness_of_without_deleted :player_number
 
   validates :member_type,
-    inclusion: { in: (Member::MemberTypes.values) }
+    inclusion: { in: (Constants.member_types.values) }
 
   validates :uniform_number,
     allow_blank: true,
@@ -56,11 +55,11 @@ class Member < ActiveRecord::Base
   # end
 
   def player?
-    self.member_type == MemberTypes[:player]
+    self.member_type == Constants.member_types[:player]
   end
 
   def manager?
-    self.member_type == MemberTypes[:manager]
+    self.member_type == Constants.member_types[:manager]
   end
 
   def member_type_disp
@@ -77,7 +76,7 @@ class Member < ActiveRecord::Base
   end
 
   def self.member_types_for_select
-    ArrayUtility.to_select(:MemberTypes, MemberTypesValues)
+    ArrayUtility.to_select(:MemberTypes, Constants.member_type)
   end
 
     #TODO positionのassociationsはあとで検討

@@ -2,6 +2,10 @@ defaults: &defaults
   uniform_number:
     min: 1
     max: 99
+  member_types:
+    none: 0
+    player: 1
+    manager: 2
 
 development:
   <<: *defaults
