@@ -18,6 +18,10 @@ defaults: &defaults
     - DF
     - MF
     - FW
+  foul_types:
+    none: 0
+    caution: 1
+    dismissal: 2
 
 development:
   <<: *defaults
