@@ -1,5 +1,6 @@
 require 'faker/japanese'
 
+#TODO FactoryGirlのファイルをモデルごとに分割する
 FactoryGirl.define do
 
   # Memberテーブル
