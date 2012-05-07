@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class Game < ActiveRecord::Base
-  GameTime = (0..999).freeze
+  #TODO 開催日、開始・終了時刻の検証は後回し、プラグインの使用を検討
+  #TODO チームの登録状況などを確認する検証を追加する
+
   has_many :teams,
     class_name: GameTeam,
     uniq: true,
@@ -23,6 +25,9 @@ class Game < ActiveRecord::Base
   validates :the_date,
     presence: true
 
-  #TODO 開催日、開始・終了時刻の検証は後回し、プラグインの使用を検討
-  #TODO チームの登録状況などを確認する検証を追加する
+  def self.game_time_range
+    (Constants.game_time_range.min..Constants.game_time_range.max)
+  end
+
 end
+

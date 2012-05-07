@@ -6,6 +6,9 @@ defaults: &defaults
     none: 0
     player: 1
     manager: 2
+  game_time_range:
+    min: 0
+    max: 999
 
 development:
   <<: *defaults
