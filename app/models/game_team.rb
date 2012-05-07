@@ -1,5 +1,5 @@
 class GameTeam < ActiveRecord::Base
-  HomeOrAway = { none: 0, home: 1, away: 2 }.freeze
+  # HomeOrAway = { none: 0, home: 1, away: 2 }.freeze
 
   belongs_to :game
 
@@ -18,7 +18,7 @@ class GameTeam < ActiveRecord::Base
     presence: true
 
   validates :home_or_away,
-    inclusion: { in: (HomeOrAway.values) },
+    inclusion: { in: (Constants.home_or_away.values) },
     uniqueness: { scope: :game_id}
 
   before_save do |r|
@@ -31,6 +31,10 @@ class GameTeam < ActiveRecord::Base
 
   def managers
     self.members.find_all {|m| m.manager?}
+  end
+
+  def self.home_or_away
+    Constants.home_or_away
   end
 
 end

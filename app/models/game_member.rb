@@ -30,11 +30,11 @@ class GameMember < ActiveRecord::Base
     inclusion: { in: (StartingStatuses.values) }
 
   def player?
-    self.master.member_type == Member::MemberTypes[:player]
+    self.master.player?
   end
 
   def manager?
-    self.master.member_type == Member::MemberTypes[:manager]
+    self.master.manager?
   end
 
   before_save do |r|

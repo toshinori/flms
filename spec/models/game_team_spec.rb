@@ -16,7 +16,7 @@ describe GameTeam do
   describe 'validations' do
     it { should validate_presence_of(:game_id) }
     it { should validate_presence_of(:team_id) }
-    it { should ensure_inclusion_of(:home_or_away).in_range(GameTeam::HomeOrAway.values)}
+    it { should ensure_inclusion_of(:home_or_away).in_range(Constants.home_or_away.values)}
     # うまく動かない
     # it { should validate_uniqueness_of(:game_id).scoped_to(:team_id) }
   end
@@ -36,12 +36,12 @@ describe GameTeam do
   end
 
   describe 'home_or_away' do
-    invalids = { nil: nil, not_include: (GameTeam::HomeOrAway.max_by{|_, v| v}[1] + 1) }
+    invalids = { nil: nil, not_include: (Constants.home_or_away.values.max + 1) }
     it_behaves_like :to_invalid_after_attr_change , 'home_or_away', invalids do
       let(:target_model) { valid_model }
     end
 
-    it_behaves_like :not_invalid_after_attr_change , 'home_or_away', GameTeam::HomeOrAway.values do
+    it_behaves_like :not_invalid_after_attr_change , 'home_or_away', Constants.home_or_away.values do
       let(:target_model) { valid_model }
     end
   end
@@ -90,7 +90,7 @@ describe GameTeam do
       GameTeam.new({
         game_id: home.game_id,
         team_id: FactoryGirl.create(:team_base).id,
-        home_or_away: GameTeam::HomeOrAway[:home]})
+        home_or_away: Constants.home_or_away[:home]})
     }
     its(:valid?) { should_not be_true }
     its(:save) { should be_false }
@@ -102,7 +102,7 @@ describe GameTeam do
       GameTeam.new({
         game_id: home.game_id,
         team_id: FactoryGirl.create(:team_base).id,
-        home_or_away: GameTeam::HomeOrAway[:away]})
+        home_or_away: Constants.home_or_away[:away]})
     }
     its(:valid?) { should_not be_true }
     its(:save) { should be_false }

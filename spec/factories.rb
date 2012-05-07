@@ -95,9 +95,9 @@ FactoryGirl.define do
         home = FactoryGirl.create(:team_base)
         away = FactoryGirl.create(:team_base)
         FactoryGirl.create(:game_team_base,
-                           { game_id: g.id, team_id: home.id, home_or_away: GameTeam::HomeOrAway[:home] })
+                           { game_id: g.id, team_id: home.id, home_or_away: GameTeam.home_or_away[:home] })
         FactoryGirl.create(:game_team_base,
-                           { game_id: g.id, team_id: away.id, home_or_away: GameTeam::HomeOrAway[:away] })
+                           { game_id: g.id, team_id: away.id, home_or_away: GameTeam.home_or_away[:away] })
       end
     end
   end
@@ -106,30 +106,29 @@ FactoryGirl.define do
   factory :game_team_base, class: GameTeam do
     game_id nil
     team_id nil
-    home_or_away GameTeam::HomeOrAway[:none]
+    home_or_away GameTeam.home_or_away[:none]
     created_at Time.now
-
 
     trait :home_team do
       game_id { FactoryGirl.create(:game_base).id }
       team_id { FactoryGirl.create(:team_base).id }
-      home_or_away GameTeam::HomeOrAway[:home]
+      home_or_away GameTeam.home_or_away[:home]
     end
 
     trait :away_team do
       game_id { FactoryGirl.create(:game_base).id }
       team_id { FactoryGirl.create(:team_base).id }
-      home_or_away GameTeam::HomeOrAway[:away]
+      home_or_away GameTeam.home_or_away[:away]
     end
 
     trait :home_team_not_game_id do
       team_id { FactoryGirl.create(:team_base).id }
-      home_or_away GameTeam::HomeOrAway[:home]
+      home_or_away GameTeam.home_or_away[:home]
     end
 
     trait :away_team_not_game_id do
       team_id { FactoryGirl.create(:team_base).id }
-      home_or_away GameTeam::HomeOrAway[:home]
+      home_or_away GameTeam.home_or_away[:home]
     end
 
     factory :game_team_home, traits: [:home_team]
@@ -155,6 +154,7 @@ FactoryGirl.define do
     factory :game_member_player, traits: [:game_member_player_type]
     factory :game_member_manager, traits: [:game_member_manager_type]
   end
+
 
   # 発生時間
   sequence :occurrence_time do
@@ -190,7 +190,7 @@ FactoryGirl.define do
 
     after_create do |g, evalator|
       players_count = 20
-      (GameTeam::HomeOrAway.values - [GameTeam::HomeOrAway[:none]]).each do |ha|
+      (GameFoul.home_or_away.values - [GameFoul.home_or_away[:none]]).each do |ha|
         players = FactoryGirl.create_list(:player,
                                           players_count,
                                           set_player_number: true,

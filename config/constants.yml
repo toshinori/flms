@@ -9,6 +9,10 @@ defaults: &defaults
   game_time_range:
     min: 0
     max: 999
+  home_or_away:
+    none: 0
+    home: 1
+    away: 2
 
 development:
   <<: *defaults

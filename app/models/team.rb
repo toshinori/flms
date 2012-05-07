@@ -20,13 +20,13 @@ class Team < ActiveRecord::Base
   has_many :home_games,
     class_name: GameTeam,
     foreign_key: :team_id,
-    conditions: { home_or_away: GameTeam::HomeOrAway[:home] },
+    conditions: { home_or_away: GameTeam.home_or_away[:home] },
     order: { the_date: :asc }
 
   has_many :away_games,
     class_name: GameTeam,
     foreign_key: :team_id,
-    conditions: { home_or_away: GameTeam::HomeOrAway[:away] },
+    conditions: { home_or_away: GameTeam.home_or_away[:away] },
     order: { the_date: :asc }
 
   has_many :game_progresses

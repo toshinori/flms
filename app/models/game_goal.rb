@@ -10,7 +10,7 @@ class GameGoal < ActiveRecord::Base
     allow_blank: false,
     numericality: {
       only_integer: true,
-      greater_than_or_equal_to: Game::GameTime.first,
-      less_than_or_equal_to: Game::GameTime.last
+      greater_than_or_equal_to: Game.game_time_range.first,
+      less_than_or_equal_to: Game.game_time_range.last
       }
 end
