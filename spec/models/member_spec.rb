@@ -121,20 +121,20 @@ describe Member do
 
   describe 'uniform_number' do
     before (:each) {
-      @range = Member::UniformNumberRange
+      @range = (Member.uniform_number_range.first..Member.uniform_number_range.last)
     }
 
     check_numbers = {
       not_number: 'aaa',
-      lower_min:  Member::UniformNumberRange.first - 1,
-      over_max:  Member::UniformNumberRange.last + 1
+      lower_min: Member.uniform_number_range.first  - 1,
+      over_max:  Member.uniform_number_range.last + 1
     }
 
     it_behaves_like :to_invalid_after_attr_change , 'uniform_number', check_numbers do
       let(:target_model) { valid_model }
     end
 
-    valid_numbers = [nil, Member::UniformNumberRange.first, Member::UniformNumberRange.last]
+    valid_numbers = [nil, Member.uniform_number_range.first, Member.uniform_number_range.last]
     it_behaves_like :not_invalid_after_attr_change , 'uniform_number', valid_numbers do
       let(:target_model) { valid_model }
     end

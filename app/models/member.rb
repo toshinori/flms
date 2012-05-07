@@ -4,7 +4,7 @@ class Member < ActiveRecord::Base
   acts_as_paranoid
   validates_as_paranoid
 
-  UniformNumberRange = (1..99).freeze
+  # UniformNumberRange = (1..99).freeze
   MemberTypesValues = { none: 0, player: 1, manager: 2}
   Member.const_set(:MemberTypes, MemberTypesValues) unless const_defined?(:MemberTypes)
   unless const_defined?(:MemberTypesForSelect)
@@ -12,9 +12,6 @@ class Member < ActiveRecord::Base
                      ArrayUtility.to_select(:MemberTypes, MemberTypesValues))
   end
 
-  def self.member_types_for_select
-    ArrayUtility.to_select(:MemberTypes, MemberTypesValues)
-  end
 
   belongs_to :position
   has_one :team_member, dependent: :destroy
@@ -46,8 +43,8 @@ class Member < ActiveRecord::Base
     allow_blank: true,
     numericality: {
       only_integer: true,
-      greater_than_or_equal_to: UniformNumberRange.first,
-      less_than_or_equal_to: UniformNumberRange.last
+      greater_than_or_equal_to: Constants.uniform_number.min,
+      less_than_or_equal_to: Constants.uniform_number.max
     }
 
   # validates_with DateFormatValidator,
@@ -74,5 +71,14 @@ class Member < ActiveRecord::Base
       # short: ! '%y/%m/%d %H:%M'
     I18n.t "constant.member_type.player"
   end
+
+  def self.uniform_number_range
+    (Constants.uniform_number.min..Constants.uniform_number.max)
+  end
+
+  def self.member_types_for_select
+    ArrayUtility.to_select(:MemberTypes, MemberTypesValues)
+  end
+
     #TODO positionのassociationsはあとで検討
 end
