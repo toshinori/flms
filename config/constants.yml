@@ -17,7 +17,7 @@ defaults: &defaults
     home: 1
     away: 2
 
-  positions:
+  positison:
     - GK
     - DF
     - MF
