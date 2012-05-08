@@ -1,4 +1,5 @@
 defaults: &defaults
+  constants_translate_root: constants
   uniform_number:
     min: 1
     max: 99

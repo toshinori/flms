@@ -1,5 +1,4 @@
 class Member < ActiveRecord::Base
-  include ArrayUtility
 
   acts_as_paranoid
   validates_as_paranoid
@@ -56,10 +55,6 @@ class Member < ActiveRecord::Base
 
   def self.uniform_number_range
     (Constants.uniform_number.min..Constants.uniform_number.max)
-  end
-
-  def self.member_type_for_select
-    ArrayUtility.to_select(:MemberTypes, Constants.member_type)
   end
 
     #TODO positionのassociationsはあとで検討
