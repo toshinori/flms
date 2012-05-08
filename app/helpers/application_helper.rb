@@ -23,6 +23,11 @@ module ApplicationHelper
     end
   end
 
+  # member_typeの表示用文言を取得します。
+  def member_type_for_display(value)
+    translate_constant(:member_type, Constants.member_type.invert[value])
+  end
+
   # translation_ja.ymlのconstants配下に定義された訳語に変換します。
   # 引数はtranslation_ja.ymlで定義された階層の順番で
   # シンボル、または文字列で指定してください。

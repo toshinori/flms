@@ -19,7 +19,7 @@
         <td><%= member.last_name %></td>
         <td><%= member.first_name %></td>
         <td><%= member.player_number %></td>
-        <td><%= member.member_type %></td>
+        <td><%= member_type_for_display(member.member_type) %></td>
         <td><%= member.uniform_number %></td>
         <td><%= member.birth_day %></td>
         <td><%=l member.created_at, format: :short %></td>
