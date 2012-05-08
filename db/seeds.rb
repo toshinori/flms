@@ -16,12 +16,10 @@ Foul.connection.execute("delete from sqlite_sequence where name = 'fouls'")
 
 Constants.foul.map{|foul| foul.symbolize_keys }.each do |foul|
   Foul.find_or_create_by_symbol(foul[:symbol]) do |f|
-    f.description = foul[:description]
     f.foul_type = foul[:foul_type]
   end
 
   Foul.find_by_symbol(foul[:symbol]) do |f|
-    f.description = foul[:description]
     f.foul_type = foul[:foul_type]
     f.save
   end
