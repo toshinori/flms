@@ -25,7 +25,7 @@ module ApplicationHelper
 
   # member_typeの表示用文言を取得します。
   def member_type_for_display(value)
-    translate_constant(:member_type, Constants.member_type.invert[value])
+    translate_constant(:member_type, Constants.member_type.key(value))
   end
 
   # translation_ja.ymlのconstants配下に定義された訳語に変換します。
