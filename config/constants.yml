@@ -1,5 +1,6 @@
 defaults: &defaults
   constants_translate_root: constants
+  select_separator: ":"
   uniform_number:
     min: 1
     max: 99

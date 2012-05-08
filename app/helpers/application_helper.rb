@@ -12,7 +12,7 @@ module ApplicationHelper
 
     fouls.collect do |foul|
       description = translate_constant(:foul, foul.symbol)
-      [ foul.id, "#{foul.symbol} #{description}" ]
+      [ "#{foul.symbol}#{Constants.select_separator}#{description}",  foul.id ]
     end
   end
 
