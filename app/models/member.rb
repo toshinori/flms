@@ -28,7 +28,7 @@ class Member < ActiveRecord::Base
   # validates_uniqueness_of_without_deleted :player_number
 
   validates :member_type,
-    inclusion: { in: (Constants.member_types.values) }
+    inclusion: { in: (Constants.member_type.values) }
 
   validates :uniform_number,
     allow_blank: true,
@@ -47,19 +47,19 @@ class Member < ActiveRecord::Base
   # end
 
   def player?
-    self.member_type == Constants.member_types[:player]
+    self.member_type == Constants.member_type[:player]
   end
 
   def manager?
-    self.member_type == Constants.member_types[:manager]
+    self.member_type == Constants.member_type[:manager]
   end
 
   def self.uniform_number_range
     (Constants.uniform_number.min..Constants.uniform_number.max)
   end
 
-  def self.member_types_for_select
-    ArrayUtility.to_select(:MemberTypes, Constants.member_types)
+  def self.member_type_for_select
+    ArrayUtility.to_select(:MemberTypes, Constants.member_type)
   end
 
     #TODO positionのassociationsはあとで検討

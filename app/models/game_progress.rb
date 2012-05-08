@@ -4,7 +4,7 @@ class GameProgress < ActiveRecord::Base
   belongs_to :player,
     class_name: Member,
     foreign_key: :member_id,
-    conditions: { member_type: Constants.member_types[:player] }
+    conditions: { member_type: Constants.member_type[:player] }
 
   validates :team_id,
     presence: true

@@ -3,7 +3,7 @@ defaults: &defaults
     min: 1
     max: 99
 
-  member_types:
+  member_type:
     none: 0
     player: 1
     manager: 2

@@ -4,6 +4,14 @@ ja:
       none:     指定なし
       player:   選手
       manager:  指導者
+    home_or_away:
+      none:     指定なし
+      home:     ホーム
+      away:     アウェイ
+    foul_type:
+      none:       指定なし
+      caution:    警告
+      dismissal:  退場
 
   activerecord:
     models:

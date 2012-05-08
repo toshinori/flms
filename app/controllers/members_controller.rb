@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
 
   before_filter do |c|
-    @member_types = Member.member_types_for_select
+    @member_types = Member.member_type_for_select
   end
 
   # GET /teams

@@ -10,12 +10,12 @@ class Team < ActiveRecord::Base
   has_many :players,
     through: :team_members,
     source: :member,
-    conditions: { member_type: Constants.member_types[:player] }
+    conditions: { member_type: Constants.member_type[:player] }
 
   has_many :managers,
     through: :team_members,
     source: :member,
-    conditions: { member_type: Constants.member_types[:manager] }
+    conditions: { member_type: Constants.member_type[:manager] }
 
   has_many :home_games,
     class_name: GameTeam,
@@ -35,12 +35,6 @@ class Team < ActiveRecord::Base
     presence: true,
     length: { maximum: 20 }
 
-  #TODO TeamMember側でdependent: :destroyとしたけど削除されないので暫定対応
-  # after_destroy do |record|
-    # TeamMember.destroy_all({ team_id: record.id })
-  # end
-
-  #TODO assosiationでどうにかしたいけど方法がわからないので、とりあえず普通のメソッドで実装
   def games
     (self.home_games | self.away_games).sort {|x, y| x.the_date <=> y.the_date}
   end

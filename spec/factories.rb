@@ -21,11 +21,11 @@ FactoryGirl.define do
     updated_at DateTime.now
 
     trait :type_player do
-      member_type Constants.member_types[:player]
+      member_type Constants.member_type[:player]
     end
 
     trait :type_manager do
-      member_type Constants.member_types[:manager]
+      member_type Constants.member_type[:manager]
     end
 
     # 選手
