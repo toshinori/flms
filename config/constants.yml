@@ -23,7 +23,7 @@ defaults: &defaults
     - MF
     - FW
 
-  foul_types:
+  foul_type:
     none: 0
     caution: &foul_caution
              !int 1

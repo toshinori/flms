@@ -6,6 +6,8 @@ class Foul < ActiveRecord::Base
     uniqueness: true
 
   def self.foul_types
-    Constants.foul_types
+    Constants.foul_type
   end
+
+
 end
