@@ -1,5 +1,5 @@
 ja:
-  constant:
+  constants:
     member_type:
       none:     指定なし
       player:   選手

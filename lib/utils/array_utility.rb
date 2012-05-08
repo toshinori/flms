@@ -4,7 +4,7 @@
 
 module ArrayUtility
 
-  def self.to_select(name, values, key_root = 'constant')
+  def self.to_select(name, values, key_root = 'constants')
     # h ||= {}
     # values.each do  |k, v|
       # trans_key = "#{key_root}.#{name.to_s.underscore.singularize}.#{k.to_s}"
