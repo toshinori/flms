@@ -59,7 +59,7 @@ class Member < ActiveRecord::Base
   end
 
   def self.member_types_for_select
-    ArrayUtility.to_select(:MemberTypes, Constants.member_type)
+    ArrayUtility.to_select(:MemberTypes, Constants.member_types)
   end
 
     #TODO positionのassociationsはあとで検討
