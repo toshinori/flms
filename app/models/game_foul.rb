@@ -1,4 +1,6 @@
 class GameFoul < ActiveRecord::Base
+  default_scope order(:occurrence_time)
+
   belongs_to :player,
     class_name: GameMember,
     foreign_key: :game_member_id

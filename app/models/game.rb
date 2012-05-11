@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class Game < ActiveRecord::Base
+  default_scope order(:the_date, :start_time)
   #TODO 開催日、開始・終了時刻の検証は後回し、プラグインの使用を検討
   #TODO チームの登録状況などを確認する検証を追加する
 
