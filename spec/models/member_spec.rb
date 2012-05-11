@@ -142,15 +142,6 @@ describe Member do
 
   describe 'birth_day' do
     #TODO Modelの日付型の属性には不正な形式の値は設定できず、設定してもnilとなってしまう
-    pending 'have to implement on controller'
-        # check_days = {
-      # invalid_format: '2000aaa',
-      # not_exists_date: '2011/2/29'
-    # }
-
-    # it_behaves_like :to_invalid_after_attr_change , 'birth_day', check_days do
-      # let(:target_model) { valid_model }
-    # end
-
+    it
   end
 end

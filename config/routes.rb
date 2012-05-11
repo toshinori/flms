@@ -3,6 +3,13 @@ Flms::Application.routes.draw do
 
   resources :teams
 
+  resources :games do
+    get 'result/edit'  => "games#edit_result"
+    get 'result'  => "games#show_result"
+    put 'result'  => "games#update_result"
+  end
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

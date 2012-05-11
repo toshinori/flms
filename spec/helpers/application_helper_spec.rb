@@ -3,6 +3,10 @@ require 'spec_helper'
 describe ApplicationHelper do
   extend(ApplicationHelper)
 
+  describe 'translate_constant' do
+    it
+  end
+
   describe 'member_type_for_display' do
     Constants.member_type.each do |k, v|
       it "when set #{v} should return #{translate_constant(:member_type, k)}" do

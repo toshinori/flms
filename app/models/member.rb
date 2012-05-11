@@ -57,5 +57,4 @@ class Member < ActiveRecord::Base
     (Constants.uniform_number.min..Constants.uniform_number.max)
   end
 
-    #TODO positionのassociationsはあとで検討
 end
