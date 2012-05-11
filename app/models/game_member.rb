@@ -29,11 +29,19 @@ class GameMember < ActiveRecord::Base
     presence: true
 
   validates :starting_status,
-    presence: true,
+    allow_blank: true,
     inclusion: { in: (Constants.starting_status.values) }
 
   def player?
     self.master.player?
+  end
+
+  def starting_player?
+    self.player? and self.starting_status == Constants.starting_status.starting
+  end
+
+  def reserve_player?
+    self.player? and self.starting_status == Constants.starting_status.reserve
   end
 
   def manager?
