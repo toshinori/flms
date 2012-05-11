@@ -17,6 +17,10 @@ class GameTeam < ActiveRecord::Base
     class_name: GameFoul,
     through: :game_members
 
+  has_many :player_changes,
+    class_name: GamePlayerChange,
+    through: :game_members
+
   validates :game_id,
     presence: true,
     uniqueness: { scope: :team_id }

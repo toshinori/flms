@@ -12,10 +12,14 @@ class GameMember < ActiveRecord::Base
 
   has_many :fouls,
     class_name: GameFoul,
-    order:  :occurrence_time
+    order: :occurrence_time
 
   has_many :goals,
     class_name: GameGoal,
+    order: :occurrence_time
+
+  has_many :changes,
+    class_name: GamePlayerChange,
     order: :occurrence_time
 
   validates :game_team_id,

@@ -27,6 +27,10 @@ class Game < ActiveRecord::Base
     class_name: GameGoal,
     through: :game_teams
 
+  has_many :player_changes,
+    class_name: GamePlayerChange,
+    through: :game_teams
+
   validates :the_date,
     presence: true
 
