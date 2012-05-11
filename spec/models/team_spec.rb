@@ -34,7 +34,6 @@ describe Team do
     it { should have_many(:managers) }
     it { should have_many(:home_games) }
     it { should have_many(:away_games) }
-    it { should have_many(:game_progresses) }
   end
 
   describe 'attributes' do
@@ -109,8 +108,5 @@ describe Team do
     pending 'have not desigined yat.'
   end
 
-  describe 'game_progresses' do
-    pending 'have not desigined yat.'
-  end
 end
 

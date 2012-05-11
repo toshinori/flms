@@ -8,9 +8,10 @@ describe Game do
 
   describe 'associations' do
     it { should have_many(:teams) }
-    it { should have_many(:progresses) }
     it { should have_one(:home_team) }
     it { should have_one(:away_team) }
+    it { should have_many(:fouls) }
+    it { should have_many(:goals) }
   end
 
   describe 'validations' do

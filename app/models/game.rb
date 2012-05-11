@@ -19,8 +19,13 @@ class Game < ActiveRecord::Base
     foreign_key: :team_id,
     conditions: { home_or_away: Constants.home_or_away[:away] }
 
-  has_many :progresses,
-    class_name: GameProgress
+  has_many :fouls,
+    class_name: GameFoul,
+    through: :game_teams
+
+  has_many :goals,
+    class_name: GameGoal,
+    through: :game_teams
 
   validates :the_date,
     presence: true

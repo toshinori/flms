@@ -11,6 +11,8 @@ describe GameTeam do
     it { should belong_to(:game) }
     it { should belong_to(:master) }
     it { should have_many(:members) }
+    it { should have_many(:goals) }
+    it { should have_many(:fouls) }
   end
 
   describe 'validations' do

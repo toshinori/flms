@@ -9,6 +9,14 @@ class GameTeam < ActiveRecord::Base
   has_many :members,
     class_name: GameMember
 
+  has_many :goals,
+    class_name: GameGoal,
+    through: :game_members
+
+  has_many :fouls,
+    class_name: GameFoul,
+    through: :game_members
+
   validates :game_id,
     presence: true,
     uniqueness: { scope: :team_id }

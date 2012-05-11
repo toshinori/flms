@@ -1,5 +1,4 @@
 class GameMember < ActiveRecord::Base
-  StartingStatuses = { none: 0, starting: 1, reserve: 2 }
 
   belongs_to :team,
     class_name: GameTeam,
@@ -27,7 +26,7 @@ class GameMember < ActiveRecord::Base
 
   validates :starting_status,
     presence: true,
-    inclusion: { in: (StartingStatuses.values) }
+    inclusion: { in: (Constants.starting_status.values) }
 
   def player?
     self.master.player?

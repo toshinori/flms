@@ -29,8 +29,6 @@ class Team < ActiveRecord::Base
     conditions: { home_or_away: GameTeam.home_or_away[:away] },
     order: { the_date: :asc }
 
-  has_many :game_progresses
-
   validates :name,
     presence: true,
     length: { maximum: 20 }

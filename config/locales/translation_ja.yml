@@ -28,6 +28,10 @@ ja:
       S5:   得点機会阻止他
       S6:   侮辱
       CS:   警告2回
+  starting_status:
+    none: 指定なし
+    starting: 先発
+    reserve: 交代要員
 
   activerecord:
     models:

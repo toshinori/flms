@@ -9,12 +9,13 @@ describe GameMember do
     it { should belong_to(:master) }
     it { should belong_to(:position) }
     it { should have_many(:fouls) }
+    it { should have_many(:goals) }
   end
 
   describe 'validations' do
     it { should validate_presence_of(:game_team_id) }
     it { should validate_presence_of(:member_id) }
-    it { should ensure_inclusion_of(:starting_status).in_range(GameMember::StartingStatuses.values) }
+    it { should ensure_inclusion_of(:starting_status).in_range(Constants.starting_status.values) }
   end
 
   context 'after save' do
