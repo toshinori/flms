@@ -12,27 +12,27 @@ Flms::Application.routes.draw do
 
   resources :games do
     member do
-      namespace 'game_result' do
+      scope 'result' do
         get 'players' => "game_members#show"
         get 'players/edit' => "game_members#edit"
         put 'players' => "game_members#update"
+
+        get 'fouls' => "game_fouls#show"
+        get 'fouls/edit' => "game_fouls#edit"
+        put 'fouls' => "game_fouls#update"
+
+        get 'goals' => "game_goals#show"
+        get 'goals/edit' => "game_goals#edit"
+        put 'goals' => "game_goals#update"
+
+        get 'changes' => "game_player_changes#show"
+        get 'changes/edit' => "game_player_changes#edit"
+        put 'changes' => "game_player_changes#update"
+
+        get 'edit'  => "games#edit_result"
+        get ''  => "games#show_result"
+        put ''  => "games#update_result"
       end
-
-      get 'result/fouls' => "game_fouls#show"
-      get 'result/fouls/edit' => "game_fouls#edit"
-      put 'result/fouls' => "game_fouls#update"
-
-      get 'result/goals' => "game_goals#show"
-      get 'result/goals/edit' => "game_goals#edit"
-      put 'result/goals' => "game_goals#update"
-
-      get 'result/changes' => "game_player_changes#show"
-      get 'result/changes/edit' => "game_player_changes#edit"
-      put 'result/changes' => "game_player_changes#update"
-
-      get 'result/edit'  => "games#edit_result"
-      get 'result'  => "games#show_result"
-      put 'result'  => "games#update_result"
     end
   end
 
