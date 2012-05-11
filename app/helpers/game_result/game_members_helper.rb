@@ -1,0 +1,2 @@
+module GameResult::GameMembersHelper
+end

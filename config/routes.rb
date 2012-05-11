@@ -1,12 +1,39 @@
 Flms::Application.routes.draw do
+  get "game_members/show"
+
+  get "game_members/edit"
+
+  get "game_members/update"
+
   resources :members
 
-  resources :teams
+  resources :teams do
+  end
 
   resources :games do
-    get 'result/edit'  => "games#edit_result"
-    get 'result'  => "games#show_result"
-    put 'result'  => "games#update_result"
+    member do
+      namespace 'game_result' do
+        get 'players' => "game_members#show"
+        get 'players/edit' => "game_members#edit"
+        put 'players' => "game_members#update"
+      end
+
+      get 'result/fouls' => "game_fouls#show"
+      get 'result/fouls/edit' => "game_fouls#edit"
+      put 'result/fouls' => "game_fouls#update"
+
+      get 'result/goals' => "game_goals#show"
+      get 'result/goals/edit' => "game_goals#edit"
+      put 'result/goals' => "game_goals#update"
+
+      get 'result/changes' => "game_player_changes#show"
+      get 'result/changes/edit' => "game_player_changes#edit"
+      put 'result/changes' => "game_player_changes#update"
+
+      get 'result/edit'  => "games#edit_result"
+      get 'result'  => "games#show_result"
+      put 'result'  => "games#update_result"
+    end
   end
 
 
