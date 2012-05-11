@@ -71,5 +71,25 @@ describe GamePlayerChange do
       its(:save) { should_not be_true }
     end
 
+    context 'when player in after out' do
+      subject {
+        out = FactoryGirl.build(:geam_player_change_base,
+                                [starting_status: Constants.starting_status.starting])
+        out.occurrence_time = 10
+        out.in_or_out = Constants.in_or_out.out
+        out.save
+
+        target = GamePlayerChange.new
+        target.game_member_id = out.game_member_id
+        target.occurrence_time = (out.occurrence_time + 1)
+        target.in_or_out = Constants.in_or_out.in
+        target
+      }
+
+      # its(:valid?) { should_not be_true }
+      # its(:save) { should_not be_value }
+      it
+    end
+
   end
 end

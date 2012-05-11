@@ -23,8 +23,8 @@ class GamePlayerChange < ActiveRecord::Base
   validate :starting_player_cannot_in,
     unless: ->(r) { r.game_member_id.blank? or r.in_or_out.blank? }
 
-  validate :cannot_out_after_in,
-    unless: ->(r) { r.game_member_id.blank? or r.in_or_out.blank? or r.occurrence_time.blank? }
+  # validate :cannot_out_after_in,
+    # unless: ->(r) { r.game_member_id.blank? or r.in_or_out.blank? or r.occurrence_time.blank? }
 
   private
     def starting_player_cannot_in
@@ -34,8 +34,12 @@ class GamePlayerChange < ActiveRecord::Base
       end
     end
 
-    def cannot_out_after_in
-
-    end
+    # def cannot_out_after_in
+      # changes = GamePlayerChange.find_all_by_game_member_id(self.player.id)
+      # return if changes.blank?
+      # return if changes.select
+        # {|r| r.occurrence_time < self.occurrence_time and r.in_or_out == Constants.in_or_out}.blank?
+      # # prev = GamePlayerChange.where()
+    # end
 
 end
