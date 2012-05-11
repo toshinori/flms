@@ -18,4 +18,24 @@ class GamePlayerChange < ActiveRecord::Base
     allow_blank: false,
     inclusion: { in: (Constants.in_or_out.values) },
     uniqueness: { scope: :game_member_id }
+
+
+  validate :starting_player_cannot_in,
+    unless: ->(r) { r.game_member_id.blank? or r.in_or_out.blank? }
+
+  validate :cannot_out_after_in,
+    unless: ->(r) { r.game_member_id.blank? or r.in_or_out.blank? or r.occurrence_time.blank? }
+
+  private
+    def starting_player_cannot_in
+      return unless self.player.starting_player?
+      if self.in_or_out  == Constants.in_or_out.in
+        errors.add(:in_or_out, 'Starting player cannot in.')
+      end
+    end
+
+    def cannot_out_after_in
+
+    end
+
 end

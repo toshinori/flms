@@ -4,9 +4,9 @@ require 'shared_examples.rb'
 describe GamePlayerChange do
 
   it_behaves_like :when_model_is_new, GamePlayerChange.new
-  it_behaves_like :when_model_is_valid, FactoryGirl.build(:gaem_player_change_base)
+  it_behaves_like :when_model_is_valid, FactoryGirl.build(:geam_player_change_base)
 
-  let(:valid_model) { FactoryGirl.build(:gaem_player_change_base) }
+  let(:valid_model) { FactoryGirl.build(:geam_player_change_base) }
 
   describe 'associations' do
     it { should belong_to(:player) }
@@ -37,9 +37,6 @@ describe GamePlayerChange do
       let(:target_model) { valid_model }
     end
 
-    it_behaves_like :not_invalid_after_attr_change , :in_or_out , Constants.in_or_out.values
-    let(:target_model) { valid_model }
-
     context 'set same player in' do
       subject {
         valid_model.save
@@ -49,6 +46,26 @@ describe GamePlayerChange do
           in_or_out: valid_model.in_or_out
         })
         target
+      }
+      its(:valid?) { should_not be_true }
+      its(:save) { should_not be_true }
+    end
+
+    describe 'reserve player' do
+      subject {
+        valid_model.player.starting_status = Constants.starting_status.reserve
+        valid_model
+      }
+      it { should ensure_inclusion_of(:in_or_out).in_range(Constants.in_or_out.values) }
+    end
+
+    context 'when starting player in' do
+      subject {
+        player = FactoryGirl.create(:game_member_player)
+        player.starting_status = Constants.starting_status.starting
+        valid_model.game_member_id = player.id
+        valid_model.in_or_out = Constants.in_or_out.in
+        valid_model
       }
       its(:valid?) { should_not be_true }
       its(:save) { should_not be_true }
