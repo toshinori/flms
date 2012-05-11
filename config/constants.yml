@@ -32,9 +32,12 @@ defaults: &defaults
     dismissal: &foul_dismissal
              !int 2
   starting_status:
-    none: 0
     starting: 1
     reserve: 2
+
+  in_or_out:
+    in: 1
+    out: 2
 
 # foul_typeはfoul_typesから参照したいけど
 # 参照するとsettingslogicで型が文字列となってしまうので直接指定

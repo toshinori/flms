@@ -150,7 +150,7 @@ FactoryGirl.define do
       member_id { FactoryGirl.create(:manager).id }
     end
 
-    starting_status 0
+    starting_status Constants.starting_status.starting
 
     factory :game_member_player, traits: [:game_member_player_type]
     factory :game_member_manager, traits: [:game_member_manager_type]

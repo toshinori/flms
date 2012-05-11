@@ -9,7 +9,6 @@ ja:
       home:     ホーム
       away:     アウェイ
     foul_type:
-      none:       指定なし
       caution:    警告
       dismissal:  退場
     foul:
@@ -28,10 +27,14 @@ ja:
       S5:   得点機会阻止他
       S6:   侮辱
       CS:   警告2回
+
   starting_status:
-    none: 指定なし
     starting: 先発
     reserve: 交代要員
+
+  in_or_out:
+    in: IN
+    out: OUT
 
   activerecord:
     models:
