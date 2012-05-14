@@ -25,6 +25,7 @@ end
 gem 'jquery-rails'
 gem 'rails3_acts_as_paranoid'
 gem 'settingslogic'
+gem 'haml-rails'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -44,6 +45,7 @@ group :development, :test do
   gem 'rails-erd'
   gem 'railroady'
   gem 'i18n_generators'
+  gem 'erb2haml'
 end
 
 # To use ActiveModel has_secure_password

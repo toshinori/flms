@@ -1,0 +1,21 @@
+- player_class = Member.new.class
+
+%div.span4
+  %h2
+    =@home_team.name
+  %h3
+    =starting_status_for_display(Constants.starting_status.starting)
+  =render :partial => 'games/player_list', locals: { players: @home_team.players.select{|p| p.starting_player?} }
+  %h3
+    =starting_status_for_display(Constants.starting_status.reserve)
+  =render :partial => 'games/player_list', locals: { players: @home_team.players.select{|p| p.reserve_player?} }
+
+%div.span4
+  %h2
+    =@away_team.name
+  %h3
+    =starting_status_for_display(Constants.starting_status.starting)
+  =render :partial => 'games/player_list', locals: { players: @away_team.players.select{|p| p.starting_player?} }
+  %h3
+    =starting_status_for_display(Constants.starting_status.reserve)
+  =render :partial => 'games/player_list', locals: { players: @away_team.players.select{|p| p.reserve_player?} }

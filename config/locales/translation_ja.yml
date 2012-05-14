@@ -27,14 +27,12 @@ ja:
       S5:   得点機会阻止他
       S6:   侮辱
       CS:   警告2回
-
-  starting_status:
-    starting: 先発
-    reserve: 交代要員
-
-  in_or_out:
-    in: IN
-    out: OUT
+    starting_status:
+      starting: 先発
+      reserve: 交代要員
+    in_or_out:
+      in: IN
+      out: OUT
 
   activerecord:
     models:
@@ -112,6 +110,7 @@ ja:
         team_member: :activerecord.models.team_member  #g
         uniform_number: 背番号
         created_at: 登録日時
+        position: 位置
 
       position:
         name: name  #g

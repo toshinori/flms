@@ -1,0 +1,25 @@
+= link_to t('.new', :default => t("helpers.links.new")),
+  "#",
+  :class => 'btn btn-mini btn-primary'
+- player_class = Member.new.class
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th= player_class.human_attribute_name(:position)
+      %th= player_class.human_attribute_name(:uniform_number)
+      %th= player_class.human_attribute_name(:last_name)
+      %th= player_class.human_attribute_name(:first_name)
+      %th= t '.actions', :default => t("helpers.actions")
+    %tbody
+      - unless players.blank?
+        - players.each do |player|
+          %tr
+            %td= player.position
+            %td= player.uniform_number
+            %td= player.last_name
+            %td= player.first_name
+            %td{align: 'center'}
+              = link_to t('.edit', :default => t("helpers.links.edit")),
+                "#", :class => 'btn btn-mini'
+              = link_to t('.destroy', :default => t("helpers.links.destroy")),
+                "#", :class => 'btn btn-mini btn-danger'
