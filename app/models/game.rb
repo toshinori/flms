@@ -12,12 +12,12 @@ class Game < ActiveRecord::Base
 
   has_one :home_team,
     class_name: GameTeam,
-    foreign_key: :team_id,
+    foreign_key: :game_id,
     conditions: { home_or_away: Constants.home_or_away[:home] }
 
   has_one :away_team,
     class_name: GameTeam,
-    foreign_key: :team_id,
+    foreign_key: :game_id,
     conditions: { home_or_away: Constants.home_or_away[:away] }
 
   has_many :fouls,

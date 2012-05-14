@@ -9,7 +9,7 @@ FactoryGirl.define do
 
   # 背番号を適当に作る
   sequence :uniform_number do
-    rand(99)
+    rand(1..99)
   end
 
   # 発生時間
@@ -24,11 +24,11 @@ FactoryGirl.define do
 
     after_create do |g, evalator|
       players_count = 20
-      (GameFoul.home_or_away.values - [GameFoul.home_or_away[:none]]).each do |ha|
+      (Constants.home_or_away.values - [Constants.home_or_away[:none]]).each do |ha|
         players = FactoryGirl.create_list(:player,
                                           players_count,
                                           set_player_number: true,
-                                          set_uniform_number: false
+                                          set_uniform_number: true
                                          )
         manager = FactoryGirl.create(:manager)
         team = FactoryGirl.create(:team_base)
@@ -43,20 +43,20 @@ FactoryGirl.define do
         starting_member_count = 11
         game_players =
           players.collect do |p|
-            starting = GameMember::StartingStatuses[:reserve]
+            starting = Constants.starting_status[:reserve]
             if GameMember.find_all_by_game_team_id(game_team.id).count < starting_member_count
-              starting = GameMember::StartingStatuses[:starting]
+              starting = Constants.starting_status[:starting]
             end
 
             FactoryGirl.create(:game_member_player,
                                { game_team_id: game_team.id, member_id: p.id, starting_status: starting })
           end
-        game_team.members.push(game_players)
+        # game_team.members.push(game_players)
 
         game_manager =
             FactoryGirl.create(:game_member_manager, { game_team_id: game_team.id, member_id: manager.id })
 
-        g.teams << game_team
+        # g.teams << game_team
       end
     end
   end
