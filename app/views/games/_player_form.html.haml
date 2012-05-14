@@ -1,0 +1,14 @@
+= form_for @game_member, remote: true,  :html => { :class => 'form-vertical' } do |f|
+.modal-body
+  .control-group
+    = f.label :member_id, :class => 'control-label'
+    .controls
+      = f.select :id, @players
+  .control-group
+    = f.label :position_id, class: 'control-label'
+    .controls
+      = f.select 'position', @positions
+  .form-actions
+    .modal-footer
+      %a.btn{"data-dismiss" => "modal", :href => "#"} Cancel
+      = f.submit nil, :class => 'btn btn-primary'

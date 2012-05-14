@@ -1,0 +1,4 @@
+- if flash[:notice]
+  #alertNotice.alert.alert-block.alert-info.fade.in
+    %button.close{"data-dismiss" => "alert", :href => "#"} &times;
+    %p= flash[:notice]

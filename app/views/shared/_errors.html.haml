@@ -1,0 +1,9 @@
+- if errors.any?
+  .alert.alert-error
+    %a.close{"data-dismiss" => "alert", :href => "#"} ×
+    %h4.alert-heading
+      = pluralize(errors.count, "error")
+      prohibited this customer from being saved:
+    %ul
+      - errors.full_messages.each do |msg|
+        %li= msg

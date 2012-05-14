@@ -1,26 +1,17 @@
 Flms::Application.routes.draw do
-  get "games/edit_result"
-
-  get "games/show_result"
-
-  get "games/update_result"
-
   get "games/show"
 
   get "games/edit"
 
   get "games/destroy"
 
-  get "game_members/show"
-
-  get "game_members/edit"
-
-  get "game_members/update"
 
   resources :members
 
   resources :teams do
   end
+
+  resources :game_members
 
   resources :games do
     member do
