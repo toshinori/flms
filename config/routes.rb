@@ -1,4 +1,16 @@
 Flms::Application.routes.draw do
+  get "games/edit_result"
+
+  get "games/show_result"
+
+  get "games/update_result"
+
+  get "games/show"
+
+  get "games/edit"
+
+  get "games/destroy"
+
   get "game_members/show"
 
   get "game_members/edit"
@@ -13,21 +25,29 @@ Flms::Application.routes.draw do
   resources :games do
     member do
       scope 'result' do
-        get 'players' => "game_members#show"
-        get 'players/edit' => "game_members#edit"
-        put 'players' => "game_members#update"
+        scope 'players' do
+          get '' => "game_members#show"
+          get 'edit' => "game_members#edit"
+          put '' => "game_members#update"
+        end
 
-        get 'fouls' => "game_fouls#show"
-        get 'fouls/edit' => "game_fouls#edit"
-        put 'fouls' => "game_fouls#update"
+        scope 'fouls' do
+          get '' => "game_fouls#show"
+          get 'edit' => "game_fouls#edit"
+          put '' => "game_fouls#update"
+        end
 
-        get 'goals' => "game_goals#show"
-        get 'goals/edit' => "game_goals#edit"
-        put 'goals' => "game_goals#update"
+        scope 'goals' do
+          get '' => "game_goals#show"
+          get 'edit' => "game_goals#edit"
+          put '' => "game_goals#update"
+        end
 
-        get 'changes' => "game_player_changes#show"
-        get 'changes/edit' => "game_player_changes#edit"
-        put 'changes' => "game_player_changes#update"
+        scope 'changes' do
+          get '' => "game_player_changes#show"
+          get 'edit' => "game_player_changes#edit"
+          put '' => "game_player_changes#update"
+        end
 
         get 'edit'  => "games#edit_result"
         get ''  => "games#show_result"
