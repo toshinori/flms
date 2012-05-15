@@ -7,12 +7,14 @@ FactoryGirl.define do
     ignore do
       set_player_number false
       set_uniform_number false
+      set_position false
     end
 
     first_name { Faker::Japanese::Name.first_name[0..9] }
     last_name { Faker::Japanese::Name.last_name[0..9] }
     player_number { FactoryGirl.generate(:player_number) if set_player_number }
     uniform_number { FactoryGirl.generate(:uniform_number) if set_uniform_number }
+    position_id { FactoryGirl.generate(:position) if set_position }
 
     member_type 0
     created_at DateTime.now

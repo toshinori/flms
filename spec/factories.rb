@@ -2,12 +2,12 @@ require 'faker/japanese'
 
 FactoryGirl.define do
 
-  # 選手管理番号を適当に作る
+  # 選手管理番号
   sequence :player_number do
     sprintf("%010d", (rand(9999999998) + 1) )
   end
 
-  # 背番号を適当に作る
+  # 背番号
   sequence :uniform_number do
     rand(1..99)
   end
@@ -17,29 +17,62 @@ FactoryGirl.define do
     rand(150)
   end
 
+  # ポジション
+  sequence :position do
+    # Position#idは1から開始
+    rand(1..Constants.position.size)
+  end
+
+  # 正常な試合データを作成
   factory :game_can_start, class: Game do
+
+    ignore do
+      players_count 20
+      not_join_players 5
+    end
+
     the_date { Date.today }
     start_time nil
     end_time nil
 
     after_create do |g, evalator|
-      players_count = 20
+
+      # ホームチームとアウェイチームでデータを作成
       (Constants.home_or_away.values - [Constants.home_or_away[:none]]).each do |ha|
+        # 選手を作成
         players = FactoryGirl.create_list(:player,
-                                          players_count,
+                                          evalator.players_count,
                                           set_player_number: true,
-                                          set_uniform_number: true
+                                          set_uniform_number: true,
+                                          set_position: true
                                          )
+
+        # 監督を作成
         manager = FactoryGirl.create(:manager)
+
+        # チームを作成
         team = FactoryGirl.create(:team_base)
 
+        # 選手と監督をチームに登録
         players.each {|p| team.members << p}
         team.members << manager
 
+        # 試合に参加しない選手を登録
+        if evalator.not_join_players > 0
+          FactoryGirl.create_list(:player,
+                                  evalator.not_join_players,
+                                  set_player_number: true,
+                                  set_uniform_number: true,
+                                  set_position: true
+                                 ).each {|p| team.members << p}
+        end
+
+        # チームを試合に登録
         game_team = FactoryGirl.create(:game_team_base,
                                        { game_id: g.id, team_id: team.id, home_or_away: ha }
                                       )
 
+        # 試合に出場する選手を登録
         starting_member_count = 11
         game_players =
           players.collect do |p|
@@ -51,12 +84,11 @@ FactoryGirl.define do
             FactoryGirl.create(:game_member_player,
                                { game_team_id: game_team.id, member_id: p.id, starting_status: starting })
           end
-        # game_team.members.push(game_players)
 
+        # 監督を試合に登録
         game_manager =
             FactoryGirl.create(:game_member_manager, { game_team_id: game_team.id, member_id: manager.id })
 
-        # g.teams << game_team
       end
     end
   end
