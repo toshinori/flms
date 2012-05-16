@@ -1,8 +1,6 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :game_goal do
-    game_member_id 1
-    occurrence_time 1
+  factory :game_goal_base, class: GameGoal do
+    game_member_id {FactoryGirl.create(:game_member_player).id}
+    occurrence_time {FactoryGirl.generate(:occurrence_time)}
   end
 end

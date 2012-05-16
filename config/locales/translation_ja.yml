@@ -50,9 +50,9 @@ ja:
 
     attributes:
       foul:
-        description: description  #g
-        foul_type: foul_type  #g
-        symbol: symbol  #g
+        description: 事由詳細
+        foul_type: 警/退
+        symbol: 事由
 
       game:
         away_team: :activerecord.models.away_team  #g
@@ -65,7 +65,7 @@ ja:
 
       game_foul:
         foul: :activerecord.models.foul  #g
-        occurrence_time: occurrence_time  #g
+        occurrence_time: 時間
         player: :activerecord.models.player  #g
 
       game_goal:

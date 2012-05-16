@@ -69,6 +69,10 @@ class GameTeam < ActiveRecord::Base
     self.master.players.select {|p| p unless ids.include?(p.id)}
   end
 
+  def player_masters
+    self.players.map {|p| p.master}
+  end
+
   def self.home_or_away
     Constants.home_or_away
   end

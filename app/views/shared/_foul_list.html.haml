@@ -1,0 +1,35 @@
+- player_class = Member.new.class
+- foul_class = Foul.new.class
+- game_foul_class = GameFoul.new.class
+
+= link_to t('.new', :default => t("helpers.links.new")),
+  new_game_foul_path(game_team_id: game_team.id),
+  :class => 'btn btn-mini btn-primary', remote: true
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th
+        No.
+      %th= foul_class.human_attribute_name(:foul_type)
+      %th= game_foul_class.human_attribute_name(:occurrence_time)
+      %th= player_class.human_attribute_name(:uniform_number)
+      %th= player_class.human_attribute_name(:full_name)
+      %th= foul_class.human_attribute_name(:symbol)
+      %th= t '.actions', :default => t("helpers.actions")
+    %tbody
+      - unless game_team.fouls.blank?
+        - game_team.fouls.each_with_index do |game_foul, i|
+          %tr
+            %td= i + 1
+            %td= foul_type_for_display(game_foul.foul.foul_type) unless game_foul.foul.blank?
+            %td= game_foul.occurrence_time
+            %td= game_foul.player.uniform_number
+            %td= game_foul.player.full_name
+            %td= game_foul.foul.symbol unless game_foul.foul.blank?
+            %td
+              = link_to t('.destroy', :default => t("helpers.links.destroy")),
+                game_foul_path(game_foul),
+                :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                :method => :delete,
+                :class => 'btn btn-mini btn-danger',
+                :remote => true

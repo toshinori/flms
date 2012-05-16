@@ -42,6 +42,7 @@ class GameMember < ActiveRecord::Base
 
   def_delegator :master, :player?
   def_delegator :master, :manager?
+  #TODO full_nameの扱いを検討
   def_delegator :master, :full_name
 
   def starting_player?

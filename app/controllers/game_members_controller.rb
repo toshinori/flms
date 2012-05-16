@@ -1,6 +1,4 @@
 class GameMembersController < ApplicationController
-  def index
-  end
 
   def new
     @game_team_id = params[:game_team_id]
@@ -34,12 +32,6 @@ class GameMembersController < ApplicationController
         format.js { render action: 'new' }
       end
     end
-  end
-
-  def edit
-  end
-
-  def update
   end
 
   def destroy

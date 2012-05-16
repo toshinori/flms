@@ -1,35 +1,62 @@
 - player_class = Member.new.class
+%ul.nav.nav-tabs#game_result
+  %li.active
+    %a{ href: '#players' }
+      = t 'players.edit'
+  %li
+    %a{ href: '#fouls' }
+      = t 'fouls.edit'
 
-.row
-  .span4
-    %h2
-      = @home_team.name
-    %h3
-      = starting_status_for_display(Constants.starting_status.starting)
-    %div{"data-home-or-away" => @home_team.home_or_away, "data-starting-status" => Constants.starting_status.starting}
-      = render :partial => 'shared/player_list',
-        locals: { game_team: @home_team, starting_status: Constants.starting_status.starting}
-  .span4
-    %h2
-      = @away_team.name
-    %h3
-      = starting_status_for_display(Constants.starting_status.starting)
-    %div{"data-home-or-away" => @away_team.home_or_away, "data-starting-status" => Constants.starting_status.starting}
-      = render :partial => 'shared/player_list',
-        locals: { game_team: @away_team , starting_status: Constants.starting_status.starting}
+.tab-content
+  .tab-pane.active#players
+    .row
+      .span4
+        %h2
+          = @home_team.name
+        %h3
+          = starting_status_for_display(Constants.starting_status.starting)
+        %div{"data-home-or-away" => @home_team.home_or_away,
+        "data-starting-status" => Constants.starting_status.starting}
+          = render :partial => 'shared/player_list',
+            locals: { game_team: @home_team, starting_status: Constants.starting_status.starting}
+      .span4
+        %h2
+          = @away_team.name
+        %h3
+          = starting_status_for_display(Constants.starting_status.starting)
+        %div{"data-home-or-away" => @away_team.home_or_away,
+        "data-starting-status" => Constants.starting_status.starting}
+          = render :partial => 'shared/player_list',
+            locals: { game_team: @away_team , starting_status: Constants.starting_status.starting}
 
-.row
-  .span4
-    %h3
-      = starting_status_for_display(Constants.starting_status.reserve)
-    %div{"data-home-or-away" => @home_team.home_or_away, "data-starting-status" => Constants.starting_status.reserve}
-      = render :partial => 'shared/player_list',
-        locals: { game_team: @home_team , starting_status: Constants.starting_status.reserve}
-  .span4
-    %h3
-      = starting_status_for_display(Constants.starting_status.reserve)
-    %div{"data-home-or-away" => @away_team.home_or_away, "data-starting-status" => Constants.starting_status.reserve}
-      = render :partial => 'shared/player_list',
-        locals: { game_team: @away_team , starting_status: Constants.starting_status.reserve}
+    .row
+      .span4
+        %h3
+          = starting_status_for_display(Constants.starting_status.reserve)
+        %div{"data-home-or-away" => @home_team.home_or_away,
+        "data-starting-status" => Constants.starting_status.reserve}
+          = render :partial => 'shared/player_list',
+            locals: { game_team: @home_team , starting_status: Constants.starting_status.reserve}
+      .span4
+        %h3
+          = starting_status_for_display(Constants.starting_status.reserve)
+        %div{"data-home-or-away" => @away_team.home_or_away,
+        "data-starting-status" => Constants.starting_status.reserve}
+          = render :partial => 'shared/player_list',
+            locals: { game_team: @away_team , starting_status: Constants.starting_status.reserve}
+
+  .tab-pane#fouls
+    .row
+      .span4
+        %h2
+          = @home_team.name
+        %div{"data-game-team-id" => @home_team.id}
+          = render :partial => 'shared/foul_list', locals: { game_team: @home_team }
+      .span4
+        %h2
+          = @away_team.name
+        %div{"data-game-team-id" => @away_team.id}
+          = render :partial => 'shared/foul_list', locals: { game_team: @away_team }
+
 
 = render partial: 'shared/dialog_base'

@@ -2,11 +2,12 @@ class GamesController < ApplicationController
 
   # GET /games/1/result/edit
   def edit_result
-    @game = Game.find(params[:id])
+    @game = Game.joins(:home_team, :away_team).find(params[:id])
 
     @home_team = @game.home_team
     @away_team = @game.away_team
 
+    logger.debug(@home_team)
   end
 
   def show_result

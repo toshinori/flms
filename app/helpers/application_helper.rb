@@ -16,6 +16,11 @@ module ApplicationHelper
     end
   end
 
+  # foul_typeを表示用文言を取得します。
+  def foul_type_for_display(value)
+    translate_constant(:foul_type, Constants.foul_type.key(value))
+  end
+
   # selectタグ用に設定するたのmember_typeの一覧を生成します。
   def member_type_for_select
     Constants.member_type.collect do |k, v|

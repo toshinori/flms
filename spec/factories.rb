@@ -29,6 +29,7 @@ FactoryGirl.define do
     ignore do
       players_count 20
       not_join_players 5
+      foul_count 5
     end
 
     the_date { Date.today }
@@ -89,6 +90,13 @@ FactoryGirl.define do
         game_manager =
             FactoryGirl.create(:game_member_manager, { game_team_id: game_team.id, member_id: manager.id })
 
+      end
+      # ファールを作成
+      g.reload
+      evalator.foul_count.times do
+        foul_types = [:game_foul_caution, :game_foul_dismissal]
+        foul_player = g.teams.sample.players.sample
+        FactoryGirl.create(foul_types.sample, {game_member_id: foul_player.id})
       end
     end
   end
