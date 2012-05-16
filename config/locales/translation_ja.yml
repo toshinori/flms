@@ -82,6 +82,7 @@ ja:
         starting_status: starting_status  #g
         team: :activerecord.models.team  #g
         uniform_number: uniform_number  #g
+        full_name: 氏名
 
       game_progress:
         game: :activerecord.models.game  #g
@@ -111,6 +112,7 @@ ja:
         uniform_number: 背番号
         created_at: 登録日時
         position: 位置
+        full_name: 氏名
 
       position:
         name: name  #g

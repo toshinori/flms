@@ -1,6 +1,10 @@
 defaults: &defaults
   constants_translate_root: constants
   select_separator: ":"
+  dialog_close_buttn: "x"
+  input_dialog_id: "inputDialog"
+  starting_player_max: 11
+
   uniform_number:
     min: 1
     max: 99

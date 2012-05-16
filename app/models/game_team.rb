@@ -32,6 +32,7 @@ class GameTeam < ActiveRecord::Base
     inclusion: { in: (Constants.home_or_away.values) },
     uniqueness: { scope: :game_id}
 
+
   before_save do |r|
     r.name = r.master.name
   end
@@ -44,8 +45,30 @@ class GameTeam < ActiveRecord::Base
     self.members.find_all {|m| m.manager?}
   end
 
+  def starting_players
+    self.members.find_all {|m| m.starting_player?}
+  end
+
+  def reserve_players
+    self.members.find_all {|m| m.reserve_player?}
+  end
+
+  def can_add_starting_player?
+    (self.starting_players.size < Constants.starting_player_max)
+  end
+
+  def can_add_reserve_player?
+    true
+  end
+
+  def out_of_bench_players
+    ids = self.players.map {|p| p.member_id}
+    self.master.players.select {|p| p unless ids.include?(p.id)}
+  end
+
   def self.home_or_away
     Constants.home_or_away
   end
+
 
 end

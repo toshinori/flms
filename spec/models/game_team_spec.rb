@@ -55,8 +55,10 @@ describe GameTeam do
         team = FactoryGirl.create(:game_team_home)
         fields = { game_team_id: team.id }
         players = FactoryGirl.create_list(:game_member_player, 10, fields)
+        team.reload
         team
       }
+
       it { should have(10).players }
     end
   end
@@ -67,6 +69,7 @@ describe GameTeam do
         team = FactoryGirl.create(:game_team_home)
         fields = { game_team_id: team.id }
         managers = FactoryGirl.create_list(:game_member_manager, 10, fields)
+        team.reload
         team
       }
       it { should have(10).managers }
@@ -109,5 +112,25 @@ describe GameTeam do
     }
     its(:valid?) { should_not be_true }
     its(:save) { should be_false }
+  end
+
+  describe 'out_of_bench_players' do
+    it
+  end
+
+  describe 'starting_players' do
+    it
+  end
+
+  describe 'reserve_players' do
+    it
+  end
+
+  describe 'can_add_starting_player?' do
+    it
+  end
+
+  describe 'can_add_reserve_player?' do
+    it
   end
 end

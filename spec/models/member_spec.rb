@@ -57,6 +57,11 @@ describe Member do
     end
   end
 
+  describe 'full_name' do
+    subject { valid_model }
+    its(:full_name) { should_not be_empty }
+  end
+
   describe 'player_number' do
     context 'when set nil' do
       subject { FactoryGirl.build(:member_base, set_player_number: false) }

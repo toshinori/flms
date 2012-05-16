@@ -52,6 +52,10 @@ class Member < ActiveRecord::Base
     self.member_type == Constants.member_type[:manager]
   end
 
+  def full_name
+    "#{self.last_name} #{self.first_name}"
+  end
+
   def self.uniform_number_range
     (Constants.uniform_number.min..Constants.uniform_number.max)
   end

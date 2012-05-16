@@ -1,4 +1,5 @@
 <% @html = j render(partial: 'form')  %>
+<% logger.debug @html %>
 $('.modal-body').html("<%= @html %>")
-$('#inputModal').modal('show')
+$('#<%= Constants.input_dialog_id %>').modal('show')
 

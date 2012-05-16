@@ -1,0 +1,30 @@
+- player_class = Member.new.class
+= link_to t('.new', :default => t("helpers.links.new")),
+  new_game_member_path(game_team_id: game_team.id, starting_status: starting_status),
+  :class => 'btn btn-mini btn-primary', remote: true
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th
+        No.
+      %th= player_class.human_attribute_name(:position)
+      %th= player_class.human_attribute_name(:uniform_number)
+      %th= player_class.human_attribute_name(:full_name)
+      %th= t '.actions', :default => t("helpers.actions")
+    %tbody
+      - unless game_team.players.blank?
+        - game_team.players.select{|p| p if p.starting_status == starting_status}.each_with_index do |player, i|
+          %tr
+            %td= i + 1
+            %td= player.position.name unless player.position.blank?
+            %td= player.uniform_number
+            %td= player.full_name
+            %td{align: 'center'}
+              -# = link_to t('.edit', :default => t("helpers.links.edit")),
+                -# "#", :class => 'btn btn-mini'
+              = link_to t('.destroy', :default => t("helpers.links.destroy")),
+                game_member_path(player),
+                :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                :method => :delete,
+                :class => 'btn btn-mini btn-danger',
+                :remote => true

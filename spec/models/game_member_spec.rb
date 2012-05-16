@@ -61,4 +61,18 @@ describe GameMember do
     its(:reserve_player?) { should_not be_true }
   end
 
+  context 'when starting_player is over' do
+    subject {
+      game = FactoryGirl.create(:game_can_start)
+      player = create(:player)
+      GameMember.new(
+        game_team_id: game.home_team.id,
+        member_id: player.id,
+        starting_status: Constants.starting_status.starting
+      )
+
+    }
+    its(:valid?) { should_not be_true }
+    its(:save) { should_not be_true }
+  end
 end

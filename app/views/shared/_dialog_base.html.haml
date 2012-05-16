@@ -1,4 +1,5 @@
-%div{ id: dialog_id}.myModal.modal.hide.fade
-  .modal-header
-    %button.close{"data-dismiss" => "modal"} X
-  = dialog_body
+.modal.hide.fade{ id: Constants.input_dialog_id }
+  .div.modal-header
+    %button{ 'data-dismisss' => 'modal' }
+      = Constants.dialog_close_buttn
+  .modal-body

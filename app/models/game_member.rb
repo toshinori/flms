@@ -1,4 +1,7 @@
+require 'forwardable'
+
 class GameMember < ActiveRecord::Base
+  extend Forwardable
 
   belongs_to :team,
     class_name: GameTeam,
@@ -32,9 +35,13 @@ class GameMember < ActiveRecord::Base
     allow_blank: true,
     inclusion: { in: (Constants.starting_status.values) }
 
-  def player?
-    self.master.player?
-  end
+  validate :can_add_starting_player,
+    on: :create,
+    if: ->(r) { not r.team.blank? and r.starting_player? }
+
+  def_delegator :master, :player?
+  def_delegator :master, :manager?
+  def_delegator :master, :full_name
 
   def starting_player?
     self.player? and self.starting_status == Constants.starting_status.starting
@@ -44,10 +51,6 @@ class GameMember < ActiveRecord::Base
     self.player? and self.starting_status == Constants.starting_status.reserve
   end
 
-  def manager?
-    self.master.manager?
-  end
-
   before_save do |r|
     r.first_name = r.master.first_name
     r.last_name = r.master.last_name
@@ -55,4 +58,10 @@ class GameMember < ActiveRecord::Base
     r.position_id = r.master.position_id
   end
 
+  private
+    def can_add_starting_player
+      unless self.team.can_add_starting_player?
+        errors.add(:game_team_id, 'Starting player is over.')
+      end
+    end
 end
