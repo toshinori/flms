@@ -3,6 +3,7 @@ require 'forwardable'
 class GameMember < ActiveRecord::Base
   extend Forwardable
 
+  belongs_to :game_team
   belongs_to :team,
     class_name: GameTeam,
     foreign_key: :game_team_id

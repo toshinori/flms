@@ -11,15 +11,18 @@ class GameTeam < ActiveRecord::Base
 
   has_many :goals,
     class_name: GameGoal,
-    through: :game_members
+    through: :members,
+    foreign_key: :game_member_id
 
   has_many :fouls,
     class_name: GameFoul,
-    through: :game_members
+    through: :members,
+    foreign_key: :game_member_id
 
-  has_many :player_changes,
+  has_many :changes,
     class_name: GamePlayerChange,
-    through: :game_members
+    through: :members,
+    foreign_key: :game_member_id
 
   validates :game_id,
     presence: true,

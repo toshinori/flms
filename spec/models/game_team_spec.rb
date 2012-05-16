@@ -1,4 +1,4 @@
-require 'spec_helper'
+jequire 'spec_helper'
 require 'shared_examples'
 
 describe GameTeam do
@@ -13,7 +13,7 @@ describe GameTeam do
     it { should have_many(:members) }
     it { should have_many(:goals) }
     it { should have_many(:fouls) }
-    it { should have_many(:player_changes) }
+    it { should have_many(:changes) }
   end
 
   describe 'validations' do
@@ -112,6 +112,18 @@ describe GameTeam do
     }
     its(:valid?) { should_not be_true }
     its(:save) { should be_false }
+  end
+
+  describe 'fouls' do
+    it
+  end
+
+  describe 'goals' do
+    it
+  end
+
+  describe 'changes' do
+    it
   end
 
   describe 'out_of_bench_players' do
