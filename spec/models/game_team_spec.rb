@@ -1,4 +1,4 @@
-jequire 'spec_helper'
+require 'spec_helper'
 require 'shared_examples'
 
 describe GameTeam do

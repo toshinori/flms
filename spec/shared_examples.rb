@@ -49,3 +49,10 @@ shared_examples_for :when_model_is_valid do |model|
   its(:valid?) { should be_true }
   its(:save) { should be_true }
 end
+
+shared_examples_for :response_is_js do
+  subject { response }
+  it { should_not render_with_layout }
+  its(:content_type) { should  === 'text/javascript' }
+end
+

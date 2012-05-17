@@ -36,7 +36,7 @@ FactoryGirl.define do
     start_time nil
     end_time nil
 
-    after_create do |g, evalator|
+    after(:create) do |g, evalator|
 
       # ホームチームとアウェイチームでデータを作成
       (Constants.home_or_away.values - [Constants.home_or_away[:none]]).each do |ha|

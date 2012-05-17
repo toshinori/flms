@@ -12,7 +12,7 @@ FactoryGirl.define do
     created_at DateTime.now
     updated_at DateTime.now
 
-    after_create do |team, evaluator|
+    after(:create) do |team, evaluator|
       # managerを追加
       if evaluator.manager_count > 0
         managers = FactoryGirl.create_list(:manager, evaluator.manager_count)

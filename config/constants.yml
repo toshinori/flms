@@ -4,6 +4,9 @@ defaults: &defaults
   dialog_close_buttn: "x"
   input_dialog_id: "inputDialog"
   starting_player_max: 11
+  path:
+    not_found: /public/404.html
+    server_error: /public/500.html
 
   uniform_number:
     min: 1

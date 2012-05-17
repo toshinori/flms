@@ -11,7 +11,7 @@ FactoryGirl.define do
     start_time nil
     end_time nil
 
-    after_create do |g, evalator|
+    after(:create) do |g, evalator|
       if evalator.create_teams
         home = FactoryGirl.create(:team_base)
         away = FactoryGirl.create(:team_base)
