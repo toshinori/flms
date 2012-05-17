@@ -7,7 +7,6 @@ class GamesController < ApplicationController
     @home_team = @game.home_team
     @away_team = @game.away_team
 
-    logger.debug(@home_team)
   end
 
   def show_result
