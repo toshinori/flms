@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511035609) do
+ActiveRecord::Schema.define(:version => 20120518055520) do
 
   create_table "fouls", :force => true do |t|
     t.string   "symbol"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20120511035609) do
     t.integer  "position_id"
   end
 
-  create_table "game_player_changes", :force => true do |t|
+  create_table "game_player_substitutions", :force => true do |t|
     t.integer  "game_member_id"
     t.integer  "occurrence_time"
     t.integer  "in_or_out"

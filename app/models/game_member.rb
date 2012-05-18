@@ -22,8 +22,8 @@ class GameMember < ActiveRecord::Base
     class_name: GameGoal,
     order: :occurrence_time
 
-  has_many :changes,
-    class_name: GamePlayerChange,
+  has_many :substitutions,
+    class_name: GamePlayerSubstitution,
     order: :occurrence_time
 
   validates :game_team_id,

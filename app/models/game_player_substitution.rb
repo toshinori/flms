@@ -1,4 +1,4 @@
-class GamePlayerChange < ActiveRecord::Base
+class GamePlayerSubstitution < ActiveRecord::Base
   default_scope order(:occurrence_time)
 
   belongs_to :player,

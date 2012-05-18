@@ -13,7 +13,7 @@ describe GameTeam do
     it { should have_many(:members) }
     it { should have_many(:goals) }
     it { should have_many(:fouls) }
-    it { should have_many(:changes) }
+    it { should have_many(:substitutions) }
   end
 
   describe 'validations' do

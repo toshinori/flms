@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'shared_examples.rb'
 
-describe GamePlayerChange do
+describe GamePlayerSubstitution do
 
-  it_behaves_like :when_model_is_new, GamePlayerChange.new
-  it_behaves_like :when_model_is_valid, FactoryGirl.build(:geam_player_change_base)
+  it_behaves_like :when_model_is_new, GamePlayerSubstitution.new
+  it_behaves_like :when_model_is_valid, FactoryGirl.build(:game_player_substitution_base)
 
-  let(:valid_model) { FactoryGirl.build(:geam_player_change_base) }
+  let(:valid_model) { FactoryGirl.build(:game_player_substitution_base) }
 
   describe 'associations' do
     it { should belong_to(:player) }
@@ -40,7 +40,7 @@ describe GamePlayerChange do
     context 'set same player in' do
       subject {
         valid_model.save
-        target = GamePlayerChange.new({
+        target = GamePlayerSubstitution.new({
           game_member_id: valid_model.game_member_id,
           occurrence_time: valid_model.occurrence_time,
           in_or_out: valid_model.in_or_out
@@ -73,13 +73,13 @@ describe GamePlayerChange do
 
     context 'when player in after out' do
       subject {
-        out = FactoryGirl.build(:geam_player_change_base,
+        out = FactoryGirl.build(:game_player_substitution_base,
                                 [starting_status: Constants.starting_status.starting])
         out.occurrence_time = 10
         out.in_or_out = Constants.in_or_out.out
         out.save
 
-        target = GamePlayerChange.new
+        target = GamePlayerSubstitution.new
         target.game_member_id = out.game_member_id
         target.occurrence_time = (out.occurrence_time + 1)
         target.in_or_out = Constants.in_or_out.in

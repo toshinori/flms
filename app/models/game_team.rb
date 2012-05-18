@@ -19,8 +19,8 @@ class GameTeam < ActiveRecord::Base
     through: :members,
     foreign_key: :game_member_id
 
-  has_many :changes,
-    class_name: GamePlayerChange,
+  has_many :substitutions,
+    class_name: GamePlayerSubstitution,
     through: :members,
     foreign_key: :game_member_id
 

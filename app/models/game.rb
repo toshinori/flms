@@ -28,8 +28,8 @@ class Game < ActiveRecord::Base
     class_name: GameGoal,
     through: :game_teams
 
-  has_many :player_changes,
-    class_name: GamePlayerChange,
+  has_many :substitutions,
+    class_name: GamePlayerSubstitution,
     through: :game_teams
 
   validates :the_date,

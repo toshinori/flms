@@ -1,8 +1,7 @@
 
 FactoryGirl.define do
 
-  # factory :game_foul_base, class: GameFoul do
-  factory :geam_player_change_base, class: GamePlayerChange do
+  factory :game_player_substitution_base, class: GamePlayerSubstitution do
     ignore do
       starting_status Constants.starting_status.reserve
     end
