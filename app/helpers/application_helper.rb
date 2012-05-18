@@ -33,6 +33,18 @@ module ApplicationHelper
     translate_constant(:member_type, Constants.member_type.key(value))
   end
 
+  # selectタグ用に設定するたのin_or_outの一覧を生成します。
+  def in_or_out_for_select
+    Constants.in_or_out.collect do |k, v|
+       [ translate_constant(:in_or_out, k), v ]
+    end
+  end
+
+  # in_or_outの表示用文言を取得します。
+  def in_or_out_for_display(value)
+    translate_constant(:in_or_out, Constants.in_or_out.key(value))
+  end
+
   # stating_statusの表示用文言を取得します。
   def starting_status_for_display(value)
     translate_constant(:starting_status, Constants.starting_status.key(value))
