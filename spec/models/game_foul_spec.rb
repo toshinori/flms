@@ -37,11 +37,51 @@ describe GameFoul do
     end
   end
 
-  describe 'when add dismissal foul' do
+  context 'when add dismissal foul' do
+    context 'when exists same player' do
+      subject {
+        foul = create(:game_foul_dismissal)
+        build(:game_foul_dismissal, {game_member_id: foul.game_member_id})
+      }
+      its(:valid?) { should_not be_true }
+      its(:save) { should_not be_true }
+    end
+
+    describe GamePlayerSubstitution do
+      before(:all) do
+        @foul = create(:game_foul_dismissal)
+      end
+      subject do
+        GamePlayerSubstitution.find_by_game_member_id_and_in_or_out_and_occurrence_time(
+          @foul.game_member_id,
+          Constants.in_or_out.out,
+          @foul.occurrence_time
+        )
+      end
+      it 'add' do
+        should_not be_blank
+      end
+    end
 
   end
 
-  describe 'when delete dismissal foul' do
-
+  context 'when delete dismissal foul' do
+    describe GamePlayerSubstitution do
+      before(:all) do
+        @foul = create(:game_foul_dismissal)
+      end
+      subject do
+        @foul.destroy
+        GamePlayerSubstitution.find_by_game_member_id_and_in_or_out_and_occurrence_time(
+          @foul.game_member_id,
+          Constants.in_or_out.out,
+          @foul.occurrence_time
+        )
+      end
+      it 'delete' do
+        should be_blank
+      end
+    end
   end
+
 end
