@@ -36,4 +36,12 @@ describe GameFoul do
       let(:target_model) { valid_model }
     end
   end
+
+  describe 'when add dismissal foul' do
+
+  end
+
+  describe 'when delete dismissal foul' do
+
+  end
 end
