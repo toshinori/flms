@@ -30,6 +30,7 @@ FactoryGirl.define do
       players_count 20
       not_join_players 5
       foul_count 5
+      goal_count 3
     end
 
     the_date { Date.today }
@@ -98,6 +99,12 @@ FactoryGirl.define do
         foul_player = g.teams.sample.players.sample
         FactoryGirl.create(foul_types.sample, {game_member_id: foul_player.id})
       end
+
+      evalator.goal_count.times do
+        goal_player = g.teams.sample.players.sample
+        FactoryGirl.create(:game_goal_base,  {game_member_id: goal_player.id})
+      end
+
     end
   end
 

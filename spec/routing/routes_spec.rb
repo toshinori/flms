@@ -12,11 +12,15 @@ shared_examples_for :game_results_routing do |controller|
   end
 end
 
+describe GameMembersController do
+  it_behaves_like :game_results_routing, GameMember.name.tableize
+end
+
 describe GameFoulsController do
   it_behaves_like :game_results_routing, GameFoul.name.tableize
 end
 
-describe GameMembersController do
-  it_behaves_like :game_results_routing, GameMember.name.tableize
+describe GameGoalsController do
+  it_behaves_like :game_results_routing, GameGoal.name.tableize
 end
 

@@ -1,0 +1,2 @@
+module GameGoalsHelper
+end

@@ -50,9 +50,14 @@ shared_examples_for :when_model_is_valid do |model|
   its(:save) { should be_true }
 end
 
-shared_examples_for :response_is_js do
+shared_examples_for :valid_js_response do |action|
   subject { response }
+  its(:status) { should == 200 }
+  it { should render_template(action) }
   it { should_not render_with_layout }
   its(:content_type) { should  === 'text/javascript' }
 end
 
+shared_examples_for :redirected_to_page_not_found do
+  it { should redirect_to(Constants.path.not_found) }
+end

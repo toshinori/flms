@@ -1,0 +1,18 @@
+= render partial: 'shared/errors', object: @game_goal.errors
+= form_for @game_goal, remote: true,  :html => { :class => 'form-vertical' } do |f|
+  = hidden_field_tag :game_team_id, @game_team_id
+  .modal-body
+    .control-group
+      = f.label :game_member_id, :class => 'control-label'
+      .controls
+        = f.collection_select(:game_member_id, @players, :id, :full_name)
+
+    .control-group
+      = f.label :occurrence_time, :class => 'control-label'
+      .controls
+        = f.number_field :occurrence_time, :class => 'number_field'
+
+    .form-actions
+      .modal-footer
+        %a.btn{"data-dismiss" => "modal", :href => "#"} Cancel
+        = f.submit nil, remote: true, :class => 'btn btn-primary'
