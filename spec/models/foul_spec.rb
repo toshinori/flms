@@ -33,4 +33,27 @@ describe Foul do
 
   end
 
+  describe 'caution_ids' do
+    before do
+      @ids = Foul.caution_ids
+    end
+    it 'ids are caution foul' do
+      @ids.each do |id|
+        foul = Foul.find(id)
+        foul.foul_type.should == Constants.foul_type.caution
+      end
+    end
+  end
+
+  describe 'dismissal_ids' do
+    before do
+      @ids = Foul.dismissal_ids
+    end
+    it 'ids are dismissal foul' do
+      @ids.each do |id|
+        foul = Foul.find(id)
+        foul.foul_type.should == Constants.foul_type.dismissal
+      end
+    end
+  end
 end
