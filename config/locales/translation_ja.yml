@@ -39,7 +39,7 @@ ja:
       foul: foul  #g
       game: game  #g
       game_foul: 警告・退場
-      game_goal: 得点
+      game_goal: 得点経過
       game_member: 出場選手
       game_progress: game_progress  #g
       game_team: game_team  #g
