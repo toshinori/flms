@@ -1,14 +1,18 @@
 - player_class = Member.new.class
+- game_member_class = GameMember.class
 %ul.nav.nav-tabs#game_result
   %li.active
     %a{ href: '#players' }
-      = t 'players.edit'
+      = GameMember.model_name.human
   %li
     %a{ href: '#fouls' }
-      = t 'fouls.edit'
+      = GameFoul.model_name.human
   %li
     %a{ href: '#goals' }
-      = t 'goals.edit'
+      = GameGoal.model_name.human
+  %li
+    %a{ href: '#substitutions' }
+      = GamePlayerSubstitution.model_name.human
 
 .tab-content
   .tab-pane.active#players
@@ -61,7 +65,6 @@
         %div{"data-game-team-id" => @away_team.id}
           = render :partial => 'shared/foul_list', locals: { game_team: @away_team }
 
-
   .tab-pane#goals
     .row
       .span4
@@ -74,5 +77,18 @@
           = @away_team.name
         %div{"data-game-team-id" => @away_team.id}
           = render :partial => 'shared/goal_list', locals: { game_team: @away_team }
+
+  .tab-pane#substitutions
+    .row
+      .span4
+        %h2
+          = @home_team.name
+        %div{"data-game-team-id" => @home_team.id}
+          = render :partial => 'shared/substitution_list', locals: { game_team: @home_team }
+      .span4
+        %h2
+          = @away_team.name
+        %div{"data-game-team-id" => @away_team.id}
+          = render :partial => 'shared/substitution_list', locals: { game_team: @away_team }
 
 = render partial: 'shared/dialog_base'

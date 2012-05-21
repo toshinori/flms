@@ -31,6 +31,7 @@ FactoryGirl.define do
       not_join_players 5
       foul_count 5
       goal_count 3
+      substitution_count 3
     end
 
     the_date { Date.today }
@@ -92,6 +93,7 @@ FactoryGirl.define do
             FactoryGirl.create(:game_member_manager, { game_team_id: game_team.id, member_id: manager.id })
 
       end
+
       # ファールを作成
       g.reload
       evalator.foul_count.times do
@@ -100,14 +102,33 @@ FactoryGirl.define do
         FactoryGirl.create(foul_types.sample, {game_member_id: foul_player.id})
       end
 
+      # ゴールを作成
       evalator.goal_count.times do
         goal_player = g.teams.sample.players.sample
         FactoryGirl.create(:game_goal_base,  {game_member_id: goal_player.id})
       end
 
+      # 選手交代を作成
+      evalator.substitution_count.times do
+
+        out_player = g.teams.sample.players.select {|p| p.starting_player? }.sample
+        in_player = out_player.team.players.select {|p| p.reserve_player? }.sample
+        time = generate(:occurrence_time)
+        create(:game_player_substitution_base, {
+          game_member_id: out_player.id,
+          in_or_out: Constants.in_or_out.out,
+          occurrence_time: time
+        })
+
+        create(:game_player_substitution_base, {
+          game_member_id: in_player.id,
+          in_or_out: Constants.in_or_out.in,
+          occurrence_time: time
+        })
+      end
+
     end
   end
-
 
 end
 

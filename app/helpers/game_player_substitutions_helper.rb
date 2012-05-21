@@ -1,0 +1,2 @@
+module GamePlayerSubstitutionsHelper
+end

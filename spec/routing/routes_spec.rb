@@ -24,3 +24,6 @@ describe GameGoalsController do
   it_behaves_like :game_results_routing, GameGoal.name.tableize
 end
 
+describe GamePlayerSubstitutionsController do
+  it_behaves_like :game_results_routing, GamePlayerSubstitution.name.tableize
+end

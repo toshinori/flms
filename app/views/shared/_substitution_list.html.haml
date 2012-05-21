@@ -1,0 +1,32 @@
+- player_class = Member.new.class
+- game_player_substitution_class = GamePlayerSubstitution.new.class
+
+= link_to t('.new', :default => t("helpers.links.new")),
+  new_game_player_substitution_path(game_team_id: game_team.id),
+  :class => 'btn btn-mini btn-primary', remote: true
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th
+        No.
+      %th= game_player_substitution_class.human_attribute_name(:occurrence_time)
+      %th= player_class.human_attribute_name(:uniform_number)
+      %th= player_class.human_attribute_name(:full_name)
+      %th= game_player_substitution_class.human_attribute_name(:in_or_out)
+      %th= t '.actions', :default => t("helpers.actions")
+    %tbody
+      - unless game_team.substitutions.blank?
+        - game_team.substitutions.each_with_index do |substitution, i|
+          %tr
+            %td= i + 1
+            %td= substitution.occurrence_time
+            %td= substitution.player.uniform_number
+            %td= substitution.player.full_name
+            %td= in_or_out_for_display(substitution.in_or_out)
+            %td
+              = link_to t('.destroy', :default => t("helpers.links.destroy")),
+                game_player_substitution_path(substitution),
+                :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                :method => :delete,
+                :class => 'btn btn-mini btn-danger',
+                :remote => true

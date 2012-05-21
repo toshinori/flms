@@ -38,11 +38,12 @@ ja:
     models:
       foul: foul  #g
       game: game  #g
-      game_foul: game_foul  #g
-      game_goal: game_goal  #g
-      game_member: game_member  #g
+      game_foul: 警告・退場
+      game_goal: 得点
+      game_member: 出場選手
       game_progress: game_progress  #g
       game_team: game_team  #g
+      game_player_substitution: 選手交代
       member: member  #g
       position: position  #g
       team: チーム #g
@@ -96,6 +97,9 @@ ja:
         master: :activerecord.models.master  #g
         members: members  #g
         name: name  #g
+      game_player_substitution:
+        occurrence_time: 時間
+        in_or_out: 入/出
 
       member:
         birth_day: 誕生日

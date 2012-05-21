@@ -1,10 +1,12 @@
 Flms::Application.routes.draw do
+
   resources :members
   resources :teams
 
   resources :game_members, only: [:new, :create, :destroy]
   resources :game_fouls, only: [:new, :create, :destroy]
   resources :game_goals, only: [:new, :create, :destroy]
+  resources :game_player_substitutions, only: [:new, :create, :destroy]
 
   resources :games do
     member do

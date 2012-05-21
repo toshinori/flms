@@ -1,0 +1,23 @@
+= render partial: 'shared/errors', object: @game_player_substitution.errors
+= form_for @game_player_substitution, remote: true,  :html => { :class => 'form-vertical' } do |f|
+  = hidden_field_tag :game_team_id, @game_team_id
+  .modal-body
+    .control-group
+      = f.label :game_member_id, :class => 'control-label'
+      .controls
+        = f.collection_select(:game_member_id, @players, :id, :full_name)
+    .control-group
+      .controls
+        = f.radio_button :in_or_out, Constants.in_or_out.out
+        = in_or_out_for_display(Constants.in_or_out.out)
+        = f.radio_button :in_or_out, Constants.in_or_out.in
+        = in_or_out_for_display(Constants.in_or_out.in)
+    .control-group
+      = f.label :occurrence_time, :class => 'control-label'
+      .controls
+        = f.number_field :occurrence_time, :class => 'number_field'
+
+    .form-actions
+      .modal-footer
+        %a.btn{"data-dismiss" => "modal", :href => "#"} Cancel
+        = f.submit nil, remote: true, :class => 'btn btn-primary'
